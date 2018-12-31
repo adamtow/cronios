@@ -689,7 +689,11 @@ If **Do Not Disturb** mode is turned on, no banners (or sounds) will be displaye
 
 <span id="open-app" class="section-header"></span>
 ## Open App
-The **Open App** action switches the iOS device immediately to the selected application. It works whether Shortcuts is in the foreground or background. As a result, it is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches. If you absolutely must use this technique, give the user some indication of what's happening via a banner notification and sound.
+The **Open App** action switches the iOS device immediately to the selected application. It works whether Shortcuts is in the foreground or background. As a result, it is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches.
+
+>Assuming you only switch to one application, the top-left corner of the screen will have small back button to the previous application.
+
+If you absolutely must use this technique, give the user some indication of what's happening via a banner notification and sound.
 
 ![Using Open App to force a switch back to the Shortcuts app](https://atow.files.wordpress.com/2018/12/DE900696-EC48-476A-BDB4-809DB21387A6.png?w=270) 
 
