@@ -691,7 +691,7 @@ If **Do Not Disturb** mode is turned on, no banners (or sounds) will be displaye
 ## Open App
 The **Open App** action switches the iOS device immediately to the selected application. It works whether Shortcuts is in the foreground or background. As a result, it is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches.
 
->Assuming you only switch to one application, the top-left corner of the screen will have small back button to the previous application.
+>Note: When the Open App action runs, the top-left corner of the iOS screen will have small back button for returning to the previous application. If you only switch to one application (i.e. Shortcuts), this could provide some visual indication, however small, on where the user can return to after your cron job has run. The user would still have to tap on the back button. There is no way currently to do so programatically.
 
 If you absolutely must use this technique, give the user some indication of what's happening via a banner notification and sound.
 
