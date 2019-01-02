@@ -1,7 +1,7 @@
 # Cronios
 
 **Run Your Shortcuts on an Automatic Schedule!**
-Cronios is a full-featured shortcuts scheduler on iOS. Configure your shortcuts to run automatically in the background on the dates, times, ranges, and intervals you specify, without any interaction on your part!
+Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts to run automatically in the background on the dates, times, ranges, and intervals you specify, without any interaction on your part!
 
 ![Cronios, the Shortcuts Scheduler for iOS](https://atow.files.wordpress.com/2018/12/55ACB6B3-6224-4C35-A4E1-12A0348C5F64.png?w=1280)
 
