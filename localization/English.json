@@ -136,6 +136,8 @@
 	    "menu.prefs.advanced.label": "Advanced Options",
 	    "menu.prefs.allowImport": "Allow External Cron Job Creation",
 	    "menu.prefs.allowImport.description": "Third-Party Apps can create cron jobs",
+	    "menu.prefs.autosave": "Enable Auto Save",
+	    "menu.prefs.autosave.description": "Automatically save changes when editing cron jobs.",
 	    "menu.prefs.debug": "Debug Mode",
 	    "menu.prefs.debug.description": "Adds additional logging and notifications",
 	    "menu.prefs.export": "Export Crontab…",
