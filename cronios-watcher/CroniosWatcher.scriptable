@@ -1,0 +1,133 @@
+/**
+ * Cronios Watcher
+ * ---------------
+ * This script notifies you when Cronios has stopped running.
+ * It assists with keeping Cronios running continously throughout the day.
+ *
+ * Initial installation is a multi-step process involving Scriptable and Shortcuts.
+ *
+ * -- In Scriptable -- 
+ * 1) Modify the kNotificationInterval below according to how often you want to be notified.
+ * 2) Run this script to create a Siri Suggestion in the Shortcuts app.
+ *
+ * -- In Shortcuts --
+ * 1) Open Shortcuts.
+ * 2) Create a new shortcut.
+ * 3) Name it "Cronios Watcher".
+ * 4) Tap "Siri Suggestions" in the left-hand sidebar.
+ * 5) Tap "Run Cronios Watcher" to add it to the shortcut.
+ * 6) Tap "Done".
+ *
+ * -- In Cronios --
+ * 1) Open Cronios.
+ * 2) Tap "New Cron Job…".
+ * 3) Give your cron job a name (i.e. Cronios Watcher).
+ * 4) Set the schedule to run every minute (* * * * *).
+ * 5) Assign the "Cronios Watcher" shortcut to the cron job.
+ * 6) Enable the cron job.
+ * 7) Save the cron job.
+ *
+ * Cronios Watcher is now ready. Whenever Cronios is running,
+ * it will call the "Cronios Watcher" every minute.
+ * The shortcut will then execute this Scriptable script,
+ * which does the following:
+ * 
+ * 1) Removes all pending Cronios Watcher notifications.
+ * 2) Creates new Cronios Watcher notifications in the future, defined by the values
+ * in kNotificationInterval array (values represent minutes from the current date).
+ * 
+ * If Cronios were to stop, the notifications in the future will be displayed.
+ * Tapping the notification banner will cause the shortcut named kShortcutName to
+ * be launched from the Shortcuts app.
+ *
+ */
+
+// Specify how many notifications you want to display in minutes.
+const kNotificationInterval = [
+	2,
+	5,
+	10,
+	15,
+	30,
+	60
+];
+
+// Specify the shortcut to run
+const kCroniosName = "Cronios";
+
+// Cronios Daemon is the preferred shortcut to run since
+// there are less than a dozen actions instead of 2800.
+const kShortcutName = "Cronios Daemon";
+
+// Specify the title of the notification 
+const kTitle = `Tap to Relaunch ${kCroniosName}`;
+const kBody = `${kCroniosName} has not run since {{Date}}.`;
+const kSound = "failure"; // default, accept, alert, complete, event, failure, piano_error, piano_success, popup
+
+/**
+ * @CroniosRestart
+ */
+
+/**
+ * Delivers notifications when Cronios is down.
+ * @constructor
+ *
+ */
+function CroniosWatcher() {}
+
+/**
+ * Schedules notifications to relaunch the Cronios according to the 
+ * values (in minutes) defined in the kNotificationInterval array.
+ * 
+ */
+CroniosWatcher.prototype.scheduleNotifications = async function() {
+	let currDate = new Date();
+
+	// First remove all pending notifications
+	this.removePendingNotifications();
+	
+	// Escape the Shortcut Name
+	let shortcutName = escape(kShortcutName);
+
+	// Generate the notification date X minutes in the future.
+	for ( var i = 0; i < kNotificationInterval.length; i++ ) {
+		let notifyDate = new Date( currDate.getTime() + ( kNotificationInterval[i] * 60 * 1000 ) );
+
+		// Create the notification
+		let n = new Notification();
+
+		n.title = kTitle;
+		n.body = kBody.replace("{{Date}}", currDate);
+		n.openURL = "shortcuts://run-shortcut?name=" + shortcutName;
+		n.sound = kSound;
+		n.setTriggerDate( notifyDate );
+		n.schedule();
+	}
+	
+	return true;
+}
+
+/**
+ * Removes all pending Cronios Watcher notifications.
+ *
+ * @returns - true
+ */
+CroniosWatcher.prototype.removePendingNotifications = async function() {
+	let notifications = await Notification.allPending();
+	
+	for ( n of notifications ) {
+		// Only remove the Cronios Watcher notifications
+		if ( n.title != null && n.title == kTitle ) {
+			n.remove();
+		}
+	}
+	return true;
+}
+
+let watcher = new CroniosWatcher();
+
+watcher.scheduleNotifications();
+
+Script.complete();
+
+
