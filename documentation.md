@@ -111,7 +111,9 @@ The first thing you should do after installing Cronios is to create your first c
 2. Tap on **☑️ My First Cron Job…**
 3. Skip over the Schedule section for the moment. The first croncut you will create is set to run every minute (that's what the `* * * * *` means).
 4. Tap ➕ **No Shortcut** to bring up the Shortcuts selection screen. Scroll through the list of your shortcuts or tap 🔎 Search to filter your list of shortcuts.
-5. Choose a shortcut to run. For your first shortcut, try this [simple one that speaks a random number](https://routinehub.co/shortcut/1367). The screenshot below shows the Speak Random Number shortcut that you can use.<br />![Speak Random Number is a good starter shortcut for your first croncut](https://atow.files.wordpress.com/2018/12/4D62C328-B12C-47DA-B0C3-43455A86AA8D.png?w=270)
+5. Choose a shortcut to run. For your first shortcut, try one of these two:
+	- **Speak Quick Beep**: [Speaks the word “beep” at a fast rate](https://routinehub.co/shortcut/1573). This results in an unobtrusive sound that can be played every minute. ![Speak Quick Beep](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep.png?w=1280)
+	- **Speak Random Number**: [Speaks a random number](https://routinehub.co/shortcut/1367). The screenshot below shows the Speak Random Number shortcut that you can use.<br />![Speak Random Number is a good starter shortcut for your first cron job](https://atow.files.wordpress.com/2018/12/4D62C328-B12C-47DA-B0C3-43455A86AA8D.png?w=270)
 
 6. Tap **Save Changes**.
 7. On the Cronios Home screen, tap **Run Continuously**.
