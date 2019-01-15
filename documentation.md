@@ -63,7 +63,7 @@ Excited about these possibilities? Get started automating iOS and Shortcuts with
 2. Assign a shortcut optimized for background operation[^1]. 
 3. Run Cronios. 
 
-As long as Cronios is active[^2], it will check every minute for any shortcuts that need running. If there’s a schedule match, your shortcut will automatically run in the background!
+As long as Cronios is active[^2], it will check every minute for any shortcut that needs running. If it finds a match, that shortcut will automatically run in the background!
 
 > If your iOS device goes to sleep, you can configure your shortcuts with Fuzzy *️⃣ schedules to run within a set timeframe (i.e. once per hour at any time during the hour).
 
@@ -76,7 +76,7 @@ As long as Cronios is active[^2], it will check every minute for any shortcuts t
 <span id="system-requirements" class="section-header"></span>
 ## System Requirements
 
-Cronios runs on devices with iOS 12 with Shortcuts 2.1.2 (or greater) installed. The Cronios shortcut is free to download and use. The source code is licensed under the [MIT License](#license).
+Cronios runs on devices with iOS 12 with [Shortcuts 2.1.2](https://itunes.apple.com/us/app/shortcuts/id915249334?mt=8) (or greater) installed. The Cronios shortcut is free to download and use. The source code is licensed under the [MIT License](#license).
 
 Content, logs and preferences are stored separately in iCloud Drive for each device you own[^3], so you can use Cronios with multiple iPhones and iPads at the same time.
 
@@ -107,15 +107,15 @@ The first thing you should do after installing Cronios is to create your first c
 - **Schedule**: A [cron schedule expression](#expressions) detailing when the shortcut should run.
 - **Shortcut**: The shortcut that will be run when the current date matches the cron schedule expression.
 
-1. Tap on Cronios from the Shortcuts Home screen. Be sure to [tap from the Shortcuts Home screen instead of the Edit screen](#launching-cronios). Cronios is made up of over 2,800 action steps, and visually running through all those steps will slow things down.
+1. Tap on Cronios from the Shortcuts Home screen. Be sure to [tap from the Shortcuts Home screen instead of the Edit screen](#launching-cronios). Cronios is made up of over 3,000 action steps, and visually running through all those steps will slow things down.
 2. Tap on **☑️ My First Cron Job…**
 3. Skip over the Schedule section for the moment. The first croncut you will create is set to run every minute (that's what the `* * * * *` means).
 4. Tap ➕ **No Shortcut** to bring up the Shortcuts selection screen. Scroll through the list of your shortcuts or tap 🔎 Search to filter your list of shortcuts.
 5. Choose a shortcut to run. For your first shortcut, try one of these two:
-	- **Speak Quick Beep**: [Speaks the word “beep” at a fast rate](https://routinehub.co/shortcut/1573). This results in an unobtrusive sound that can be played every minute. ![Speak Quick Beep](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep.png?w=1280)
-	- **Speak Random Number**: [Speaks a random number](https://routinehub.co/shortcut/1367). The screenshot below shows the Speak Random Number shortcut that you can use.<br />![Speak Random Number is a good starter shortcut for your first cron job](https://atow.files.wordpress.com/2018/12/4D62C328-B12C-47DA-B0C3-43455A86AA8D.png?w=270)
+	- **Speak Quick Beep**: [Speaks the word “beep” at a fast rate](https://routinehub.co/shortcut/1573). This results in an unobtrusive sound that can be played every minute. ![Speak Quick Beep shortcut screenshot](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep.png?w=1280)
+	- **Speak Random Number**: [Speaks a random number between 1-100](https://routinehub.co/shortcut/1367).[Speak Random Number shortcut screenshot](https://atow.files.wordpress.com/2018/12/4D62C328-B12C-47DA-B0C3-43455A86AA8D.png?w=270)
 
-6. Tap **Save Changes**.
+6. Tap **Save Changes**. If **[Auto Save](#auto-save)** is enabled in Settings, tap the **Cronios Home** menu item. 
 7. On the Cronios Home screen, tap **Run Continuously**.
 8. Tap **Start**. 
 
@@ -170,6 +170,7 @@ This section features the two commands used to launch Cronios in monitoring mode
 The Crontab is the list of cron jobs on your iOS device. Each cron job lists the following information:
 
 -  ☑️ or ⬜️: If checked, the cron job is active and will be evaluated every minute when Cronios is running. Tap to enable and disable the cron job.
+- **Priority**: ‼️, ❗️, or ❕ icons next to the descriptions denotes Critical, High and Low priority cron jobs. Priority determines the order by which multiple shortcuts run if they all share the same schedule. 
 - **Description**: a short description on what the cron job does. Tap to edit the description.
 - **Expression**: a valid cron schedule expression. Tap to bring up the [Cron Expression Editor](#cron-expression-editor). 
 - **Shortcut**: the name of the shortcut that will run. Tap to [select another shortcut](#shortcut-select). 
@@ -183,27 +184,29 @@ Additional icons may be shown next to the shortcut indicating the following opti
 - **Display Notification**💬: A notification banner will appear when the assigned shortcut runs.
 - **Play Sound** 🔔: The notification banner will be accompanied by a sound.
 - **Notify Shortcut** 📗: The [Cronios dictionary](#notify-shortcut-cronios-dictionary) will be sent to the shortcut. Developers can use this dictionary to change operations depending on how the shortcut was launched (i.e. manually or in the background via Cronios).
+- **Lock Detection** 🔒: If the screen brightness is set to zero, Cronios will consider the device locked. Checking this option will prevent your shortcut from running. This is useful if your shortcut requires user interaction or access to private data (Health data for instance). 
+- **Exclude From Success Notifications** 🌒: Cronios displays the names of all shortcuts it runs during each evaluation period. If you have a shortcut that you do not want to appear in the list, enable this option. This is useful for shortcuts that run frequently, like the [**Keep Cronios Awake shortcut**](#keeping-cronios-alive). 
 
 >Note: You can export your Crontab into a human-readable format by choosing **Export Crontab…** in Settings. 
 
-Below the list of cron jobs are the **🚥 Bulk Edit…** and ✅ **Bulk Edit All…** commands. Use them to activate, deactivate, delete multiple cron jobs at once. You can also clear the last run status of selected cron jobs, which is useful if you are using cron jobs in [Fuzzy *️⃣ mode](#fuzzy-star) and want to run them again during the same matched schedule.
+Below the list of cron jobs are the **Bulk Edit…** and **Bulk Edit All…** commands. Use them to activate, deactivate, delete multiple cron jobs at once. You can also clear the last run status of selected cron jobs, which is useful when testing or when you want to run a cron job that has [Fuzzy *️⃣ mode](#fuzzy-star) enabled.
 
 <span id="actions" class="section-header"></span>
 
 ### Actions
 
-- **➕ New Cron Job**: Create a new cron job
-- **📥 Import Cron Jobs**: Import multiple cron jobs at a time. Input is a text string that must adhere to the [**Cronios Crontab** format](#cronios-crontab).
-- [**✳️ Cron Expression Editor**](#cron-expression-editor): a tool for generating cron schedule expressions. Ever wonder what `*/5 9-17 10-15 4 *` means? Just enter the expression in the Expression Editor and get back a human-readable response of `every 5th minute past every hour from 9 through 17 on every day-on-month from 9 through 14 in April.`
+- **New Cron Job**: Create a new cron job
+- **Import Cron Jobs**: Import multiple cron jobs at a time. Input is a text string that must adhere to the [**Cronios Crontab** format](#cronios-crontab).
+- [**Cron Expression Editor**](#cron-expression-editor): a tool for generating cron schedule expressions. Ever wonder what `*/5 9-17 10-15 4 *` means? Just enter the expression in the Expression Editor and get back a human-readable response of `every 5th minute past every hour from 9 through 17 on every day-on-month from 9 through 14 in April.`
 
 <span id="about-and-settings" class="section-header"></span>
 
 ### Cronios
 
 - **About**: Displays the about screen with the current version and build number.
-- **🙋 Help**: Opens the documentation that you are reading now. 
-- **🧧 Tip Jar**: Send me a tip if you have found Cronios useful for automating your shortcuts.
-- **⚙️ Settings**: Adjust Cronios preferences, export your Crontab, import a Crontab, change languages, and more. 
+- **Help**: Opens the documentation that you are reading now. 
+- **Tip Jar**: Send me a tip if you have found Cronios useful for automating your shortcuts.
+- **Settings**: Adjust Cronios preferences, export your Crontab, import a Crontab, change languages, and more. 
 - **Install Cronios Daemon Helper**: The [**Cronios Daemon** shortcut](#cronios-daemon) launches Cronios in "Run Continuously" mode with one tap from your iOS Home Screen or via Siri.
 
 <hr />
@@ -219,44 +222,50 @@ Remember that a cron job is a scheduled shortcut. You define the schedule at whi
 
 ![Editing a cron job in Cronios](https://atow.files.wordpress.com/2018/12/6130E0E9-A769-4F2B-A769-C4070BF98ABB.png?w=1280)
 
-- **✅ Save Changes**: Save changes to the cron job and return to the Cronios Home screen.
-- **☑️ or ⬜️ Active**: Check this if you want the cron job evaluated every minute. 
+- **Save Changes**: Save changes to the cron job and return to the Cronios Home screen. If you have [**Auto Save**](#auto-save) enabled, this menu item becomes a link to go back to the Cronios Home screen. 
+- **☑️ or ⚪️ Active**: Check this if you want the cron job evaluated every minute. 
 - **✏️ Description**: A short description for the cron job. Tap to edit the description.
 - **🕑 Expression**: The cron schedule expression. 
 - **Shortcut**: The shortcut to run when the schedule matches the current date. Tap to choose another shortcut.
 - **▶️ Test Shortcut**: Run the shortcut from Cronios. This mimics what would happen if Cronios executed your shortcut on schedule.
-- **🛠 Edit Shortcut**: Quit Cronios and re-open the Shortcuts application to the selected shortcut in edit mode.
+- **🔧 Edit Shortcut**: Quit Cronios and re-open the Shortcuts application to the selected shortcut in edit mode.
+- **Priority**: A cron job’s priority determines when it is evaluated and run when you have multiple cron jobs in your Crontab. A value between 1-25 is considered Critical‼️. A value between 26-49 is considered High❗️. A value of 50 is normal (this is the default priority for new cron job’s). Finally a value between 52-100 is considered Low❕. 
 - **Display Notification** 💬: Check this if you want a notification banner to appear when the assigned shortcut runs.
 - **Play Sound** 🔔: Check this if you want a sound to accompany the banner notification.
 - **Notify Shortcut** 📗: Check this if you want to send the [Cronios dictionary](#notify-shortcut-cronios-dictionary) to the shortcut. This will help your shortcut know that it's running in the background.
 - **Requires Network** ☁️: Check this if your shortcut requires internet connectivity. Cronios will not evaluate this cron job until you are back on the network. 
 - **Requires User Interaction** ✋🏻: Check this if the shortcut requires any kind of user interaction.
+- **Lock Detection** 🔒: Check this option to prevent your shortcut from running when the screen is locked. This is useful for those shortcuts that require access to data that is only accessible when the device is unlocked (i.e. your Health data). 
+- **Exclude From Success Notifications** 🌒: Check this you do not want the shortcut to appear in the list of successfully run shortcuts. Useful for shortcuts that run very frequently (i.e. every minute).
 - **🗑 Delete**: Delete the current cron job and return to the Cronios Home screen.
-- **❌ Close Without Saving**: Don't save any changes made to the cron job and return to the Cronios Home screen.
-- **✅ Save Changes**: Save changes to the cron job and return to the Cronios Home screen.
+- **❌ Close Without Saving**: Don't save any changes made to the cron job and return to the Cronios Home screen. If **Auto Save** is enabled, this menu item does not appear. 
+- **✅ Save Changes**: Save changes to the cron job and return to the Cronios Home screen. If **Auto Save** is enabled, this menu item does not appear. 
+- **Cronios Home**: Tapping the Cronios logo returns you to the Cronios Home screen. 
 
->Note: When you are editing an existing cron job, your changes will not be saved until you tap on the **Save Changes** menu item.
+>Note: Enable Auto Save in [Cronios Settings](#settings) to automatically save changes to your cron job. Disable it if you want to be able to revert changes you make during the editing process (just remember to tap  **Save Changes** when you are done).
 
 <span id="shortcut-select" class="section-header"></span>
 ### Choosing Shortcuts 
 Tap on the shortcut to bring up the **Shortcut Select** dialog. Here you can:
 
 1.  Choose a shortcut.
-2. Tap **🔍 Search** to filter your list of shortcuts by keyword. Separate multiple keywords with new lines. Exclude keywords by prefixing the search term with a '-'.
+2. Tap **🔍 Search** to filter your list of shortcuts by keyword. Separate multiple keywords with new lines. Exclude keywords by prefixing the search term with a '-'. Note that search terms are case-sensitive. 
 3. Tap **⬅️ Back** to return to the Edit Cron Job screen without making a choice.
 
 ![Organize your shortcuts with LaunchCuts](https://atow.files.wordpress.com/2018/12/90BA635C-2DE5-4739-B9D7-A677CA5CEDD8.png?w=270)
 
 ### Testing the Shortcut
-After you have selected a shortcut, you can test it by tapping on the **▶️ Test Shortcut** menu item below your shortcut's name. This will mimic what happens when your shortcut is run by Cronios.
+After you have selected a shortcut, you can test it by tapping on the **▶️ Test Shortcut** menu item below your shortcut's name. This will closely mimic what happens when your shortcut is run by Cronios.
 
 - A notification will appear if you have checked **Display Notification 💬**.
 - A sound will accompany the notification if you have **Play Sound with Notification 🔔**checked.
 - The Cronios Dictionary will be sent to your shortcut if you have **Notify Shortcut 📗** checked.
-- An alert will appear, and your shortcut will not run if you have **Requires Network Access ☁️** checked, and if you are offline. 
+- An alert will appear, and your shortcut will not run if (1) you have **Requires Network Access ☁️** checked and (2) your device is offline.
+- Your shortcut will not run if the screen brightness is set to 0 and you have **Lock Detection 🔒** checked.
+- A success notification will not appear if you have **Exclude From Success Notification 🌘** checked. 
 
 ### Editing the Shortcut
-Tap **🛠 Edit Shortcut…** to quit Cronios and edit your shortcut. You will be temporarily redirected to a mobile Safari page, which will prompt you to open the Shortcuts app. Tap Open to return to Shortcuts and the selected shortcut to the Edit screen.
+Tap **🔧 Edit Shortcut…** to quit Cronios and edit your shortcut. You will be temporarily redirected to a mobile Safari page, which will prompt you to open the Shortcuts app. Tap Open to return to Shortcuts and the selected shortcut to the Edit screen.
 
 <hr />
 
@@ -349,16 +358,16 @@ The CEE window displays the following information at the top of the menu:
 - **Expression**: A ✅ or ❌ denotes whether the expression is valid or invalid
 - **Explanation**: a human-readable version of the expression
 - **Date**: The custom date or current date. A ✅ or ❌ denotes whether the expression matches the date shown.
-- **Date UTC**. The custom or current date in UTC time format. A ✅ or ❌ denotes whether the expression matches the date.
-- **minutes** : Tap this to adjust the minutes component of the expression.
-- **hours** :  Tap this to adjust the hours component of the expression.
-- **dayOfMonth** :  Tap this to adjust the day of the month component of the expression.
-- **month** :  Tap this to adjust the month component of the expression.
-- **dayOfWeek** :  Tap this to adjust the day of the week component of the expression.
-- **Manually Input Cron Expression** : Open a text input box and manually enter the cron expression.
-- **Test with Current Date** : Redisplays the CEE using the current date.
-- **Test with Custom Date** : Redisplays the CEE using a date that you specify.
-- **Copy Expression to Clipboard** : Copies the currently displayed expression to the clipboard.
+- **Date UTC**: The custom or current date in UTC time format. A ✅ or ❌ denotes whether the expression matches the date.
+- **minutes**: Tap this to adjust the minutes component of the expression.
+- **hours**:  Tap this to adjust the hours component of the expression.
+- **dayOfMonth**:  Tap this to adjust the day of the month component of the expression.
+- **month**:  Tap this to adjust the month component of the expression.
+- **dayOfWeek**:  Tap this to adjust the day of the week component of the expression.
+- **Manually Input Cron Expression**: Open a text input box and manually enter the cron expression.
+- **Test with Current Date**: Redisplays the CEE using the current date.
+- **Test with Custom Date**: Redisplays the CEE using a date that you specify.
+- **Copy Expression to Clipboard**: Copies the currently displayed expression to the clipboard.
 - **Save and Close**: If editing a cron entry, this will save the new expression object into your shortcut.
 
 >Note: If you are comfortable writing cron expressions, you can use the **Manually Input Cron Expression…** command or turn off use of the CEE altogether in Settings.
@@ -378,9 +387,9 @@ Alternatively, it can be written as follows using step values:
 
 To a machine, this reads as every 2nd hour starting from 9:00 to 17:00.
 
-Tap **Save and Close** to return to the Edit Cron Job screen. Your edited cron job will now feature the new expression. Remember to tap **✅ Save Changes** to save your edited cron job back to the Crontab. 
+Tap **Save and Close** to return to the Edit Cron Job screen. Your edited cron job will now feature the new expression.
 
->The Cron Expression Editor can be used outside of creating and editing cron jobs. Tap on **✳️ Cron Expression Editor…** from the Cronios Home screen to experiment!
+>The Cron Expression Editor can be used outside of creating and editing cron jobs. Tap on **Cron Expression Editor…** from the Cronios Home screen to experiment!
 
 <hr />
 
@@ -424,14 +433,15 @@ Note that this also means that if you start Cronios at 11:58 am and run it throu
 <span id="launching-cronios" class="section-header"></span>
 ## Launching Cronios
 
-Tapping play while viewing Cronios' code will cause Shortcuts to visually run through the 2800+ actions, which takes time and consumes a lot of Shortcuts' resources. 
+Tapping play while viewing Cronios' code will cause Shortcuts to visually run through the 3,000+ actions, which takes time and consumes a lot of Shortcuts' resources. 
 
 >Unless you're a developer and want to see what's happening underneath the hood of Cronios, don't run Cronios from the Edit screen in Shortcuts.
 
-Rather, run Cronios from the Shortcuts Home screen or use the **Cronios Daemon** shortcut for faster access to Cronios via Siri or from the iOS Home screen. 
+Rather, run Cronios from the Shortcuts Home screen or use the [**Cronios Daemon** shortcut](#cronios-daemon) for faster access to Cronios via Siri or from the iOS Home screen. 
 
 ![Launch Cronios from the Shortcuts Home screen — not from the Edit screen — or use the Cronios Daemon shortcut.](https://atow.files.wordpress.com/2018/12/7FF39B4B-9A83-487C-B62F-5EACAD434A2C.png?w=1280)
 
+<span id="cronios-daemon" class="section-header"></span>
 The **Cronios Daemon** shortcut comes packaged with Cronios. Choose **Install Cronios Daemon Shortcut…** from the Home screen or Settings. You'll be redirected to a Safari page where you can tap on a link to install it in Shortcuts. From there, add the shortcut to your iOS Home screen and give it a Siri activation phrase, such as "Activate Cronios".
 
 ![Running the Cronios Daemon](https://atow.files.wordpress.com/2018/12/7F800F0F-7591-423D-974F-7F89BDB69F60.png&w=270)
@@ -448,13 +458,96 @@ If you have Cronios running in the foreground (i.e. the Shortcuts app is the act
 
 Of course, you didn't buy your iOS device there just to watch it work for you. You'll be constantly switching between apps on your iPhone or iPad. Cronios will continue to run in the background until iOS decides to suspend it (and the Shortcuts app).
 
-### Preferred Method for Keeping Cronios Active
-After much testing, the following is my preferred method for keeping Cronios running as long as possible:
+There are two components to keeping Cronios running as long as possible:
 
-1. Run the **Speak Quick Beep** or similar shortcut every minute. 
+1. Keeping Cronios and Shortcuts awake in the background. 
+2. Notifying you when Cronios has stopped. 
+
+We address both of these components below. 
+
+<span id="speak-and-scriptable" class="section-header"></span>
+### Recommended Method for Keeping Cronios Active
+After much testing, the following is the recommended method for keeping Cronios running as long as possible:
+
+1. Run the [**Speak Quick Beep**](https://routinehub.co/shortcut/1573) or similar shortcut every minute. 
 2. Integrate with **Scriptable** and the **Cronios Watcher** Script to be notified when Cronios stops. 
 
-This [approach is covered in the next section](#speak-and-scriptable). 
+>You can merge these two actions into one shortcut but it requires some manual work because step 2 involves having a Siri Suggestion shortcut available. See the screenshot at the end of this section for details. 
+
+### Speak Quick Beep to Keep Cronios Alive
+Of all the techniques to keep Cronios running for long periods of time, I have found none more effective than using the **Speak Text** action in Shortcuts. Setting up a cron job to speak a beep or chirp-like text string every one or two minutes keeps Shortcuts and Cronios running in the background. 
+
+>I have tried actions to vibrate the device, changing the brightness by an imperceptible amount, and adjusting the system volume, but none of these work as well as Speak Text. 
+
+Download and install [the Speak Quick Beep shortcut from RoutineHub](https://routinehub.co/shortcut/1573).
+
+![Speak Quick Beep shortcut](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep.png?w=1280)
+
+![Speak Quick Beep cron job](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep-in-Cronios.png?w=1280)
+
+### Be Notified When Cronios Stops with Scriptable
+
+[Scriptable](https://scriptable.app) is a JavaScript development enviroment for iOS. It allows you to create scripts that can be run from Shortcuts and Siri. A recent update added the ability to schedule notifications, which we will use to notify us when Cronios has stopped running. 
+
+By integrating this Scriptable script with Cronios, you will be notified whenever Cronios has stopped running. With one tap on the notification banner, you will  relaunch Cronios in Run Continuously Mode via the [**Cronios Daemon**](#cronios-daemon).
+
+**Your downtime will be minimized and Cronios will be running for longer periods of time throughout the day**. 
+
+#### Scriptable Instructions
+1. Download and install [Scriptable](https://scriptable.app) if you haven’t done so already. 
+2. Open Scriptable.
+3. Tap the + icon to create a new script. 
+4. Tap the Script Settings button. 
+5. Tap and edit the name. Call it `Cronios Watcher`. ![Create Scriptable script for Cronios Watcher](https://atow.files.wordpress.com/2019/01/Create-Scriptable-Script.png?w=1280)
+6. Change the icon and color if desired. 
+7. Tap Done. 
+8. In the main script area, copy and paste [the contents of the following file on GitHub](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.scriptable). ![Cronios Watcher Scriptable Script](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Scriptable-Script.png?w=1280)
+9. If desired, change the values in the `kNotificationInterval` array according to the reminder schedule you want to have for Cronios Watcher. The default has reminders to restart the [**Cronios Daemon** shortcut](#cronios-Daemon) after 2, 5, 10, 15, 30, and 60 minutes of no Cronios activity. 
+10. Tap the Play button to run the script. This will create a Siri Suggestion shortcut in Shortcuts. 
+11. Tap Done.
+
+#### In Shortcuts
+1. Open Shortcuts. 
+2. Tap the + button to create a new shortcut.
+3. Tap the Shortcut Settings button. 
+4. Give your shortcut the name `Cronios Watcher`. 
+5. Tap Done. 
+6. Tap the Action search field. 
+7. Enter `Run Cronios Watcher`. 
+8. If you ran the Scriptable script Cronios Watcher in step 10 above, you will see an entry for **Run Cronios Watcher** in the list of actions. 
+9. Drag the **Run Cronios Watcher** action over to your shortcut. ![Cronios Watcher Shortcut](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Shortcut.png?w=1280)
+10. Tap Run. This will remove the reminders you created in Step 10 of the Scriptable instructions and schedule a new batch in the future. 
+11. Tap Done to Save your shortcut. 
+
+Now, go over to Cronios to create your Cronios Watcher cron job. 
+
+#### In Cronios
+1. In Shortcuts, open Cronios. 
+2. Tap + New Cron Job. 
+3. Tap Description. Give your cron job the name `Cronios Watcher`. 
+4. Tap Shortcut. 
+5. Find and tap the **Cronios Watcher** shortcut you created in the preceding section. 
+6. In the New Cron Job screen, scroll down and turn **OFF** the following options if they are checked: **Display Notification, Play Sound with Notification**, and **Don’t Run When Device Locked**. We do this since we are calling this shortcut frequently and don’t want to be distracted with too many notifications when the shortcut is run. 
+7. Enable **Exclude From Success Notifications**. ![Cronios Watcher Cron Job](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Cron-Job.png?w=1280)
+8. If you have [**Auto Save**](#auto-save) enabled, tap the **Cronios Home** button. Otherwise tap **Save Changes**. 
+
+Cronios Watcher is now ready. Whenever Cronios is running, it will call the **Cronios Watcher** shortcut every minute.
+
+The shortcut will then execute identically named **Cronios Watcher** Scriptable script, which does the following:
+
+ 1. Removes all pending Cronios Watcher notifications.
+ 2. Creates new Cronios Watcher notifications in the future, defined by the values in `kNotificationInterval` array (values represent minutes from the current date).
+
+ Now, if Cronios were to stop, the notifications in the future will be displayed. Tapping the notification banner will cause the shortcut named `kShortcutName` to be launched from the Shortcuts app. By default this points to the [**Cronios Daemon shortcut**](#cronios-Daemon).
+ 
+ >Using Cronios Daemon is preferable to Cronios itself because the Cronios Daemon shortcut automatically launches Cronios in Run Continuously Mode. It also runs faster since it has only 4 actions instead of 3,000.
+ 
+### Combining Speak Quick Beep and Cronios Watcher into one shortcut. 
+Consider combine both shortcuts into one called **Keep Cronios Awake**. The shortcut will only be three actions long:
+
+![Combining Speak Quick Beep and Cronios Watcher into one shortcut](https://atow.files.wordpress.com/2019/01/Combining-Speak-Quick-Beep-and-Cronios-Watcher-into-one-shortcut.png?w=1280)
+
+***
 
 ### Additional Techniques for Keeping Cronios Alive
 Here are some additional techniques to keep it active and running in the background:
@@ -468,77 +561,12 @@ If you are using Cronios on an iPad, you can run Shortcuts in Split View. Doing 
 
 ![Cronios runs great in Split View on the iPad](https://atow.files.wordpress.com/2018/12/ivborw0kggoaaaansuheugaadgaaaajucayaaad194waaaacxbiwxmaaastaaaleweampwyaabc-2-1-1.png?w=1280)
 
-<span id="speak-and-scriptable" class="section-header"></span>
-### Speak to Keep Cronios Alive
-Of all the techniques to keep Cronios running for long periods of time, I have found none more effective than using the **Speak Text** action in Shortcuts. Setting up a cron job to speak every one or two minutes keeps Shortcuts and Cronios running in the background. 
-
->I have tried actions to vibrate the device, changing the brightness by an imperceptible amount, and adjusting the system volume, but none of these work as well as text to speech action. 
-
-Download and install the Speak Quick Beep shortcut from RoutineHub.
-
-![Speak Quick Beep shortcut](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep.png?w=1280)
-
-![Speak Quick Beep cron job](https://atow.files.wordpress.com/2019/01/Speak-Quick-Beep-in-Cronios.png?w=1280)
-
-### Be Notified When Cronios Stops with Scriptable
-
-[Scriptable](https://scriptable.app) is a JavaScript development enviroment for iOS. It allows you to create scripts that can be run from Shortcuts and Siri. A recent update also added the ability to schedule notifications, which we will use to notify us when Cronios has stopped running. 
-
-By integrating a Scriptable script with Cronios, you will be notified whenever Cronios has stopped running. You will be able to relaunch Cronios in Run Continuously Mode with one tap. **Your downtime will be minimized and Cronios will be running for longer periods of time throughout the day**. 
-
-#### Scriptable Instructions
-1. Download and install [Scriptable](https://scriptable.app) if you haven’t done do already. 
-2. Open Scriptable.
-3. Tap the + icon to create a new script. 
-4. Tap the Script Settings button. 
-5. Tap and edit the name. Call it `Cronios Watcher`. ![Create Scriptable script for Cronios Watcher](https://atow.files.wordpress.com/2019/01/Create-Scriptable-Script.png?w=1280)
-6. Change the icon and color if desired. 
-7. Tap Done. 
-8. In the main script area, copy and paste [the contents of the following file on GitHub](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.scriptable). ![Cronios Watcher Scriptable Script](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Scriptable-Script.png?w=1280)
-9. If desired, change the values in the `kNotificationInterval` array according to the reminder schedule you want to have for Cronios Watcher. The defaults have reminders to restart **Cronios Daemon** shortcut after 2, 5, 10, 15, 30, and 60 minutes of detecting no Cronios activity. 
-10. Tap the Play button to run the script. 
-11. Tap Done.
-
-#### In Shortcuts
-1. Open Shortcuts. 
-2. Tap the + button to create a new shortcut.
-3. Tap the Shortcut Settings button. 
-4. Give your shortcut the name `Cronios Watcher`. 
-5. Tap Done. 
-6. Tap the Action search field. 
-7. Enter `Run Cronios Watcher`. 
-8. If you ran the Scriptable script Cronios Watcher in step 10 above, you will see an entry for **Run Cronios Watcher** in the list of actions. 
-9. Drag the **Run Cronios Watcher** action over to your shortcut. ![Cronios Watcher Shortcut](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Shortcut.png?w=1280)
-10. Tap Run. This will reset the reminders you created in Step 10 of the Scriptable instructions. 
-11. Tap Done to Save your shortcut. 
-
-Now, go over to Cronios to create your Cronios Watcher cron job. 
-
-#### In Cronios
-1. In Shortcuts, open Cronios. 
-2. Tap + New Cron Job. 
-3. Tap Description. Give your cron job the name `Cronios Watcher`. 
-4. Tap Shortcut. 
-5. Find and tap the **Cronios Watcher** shortcut you created in the preceding section. 
-6. In the New Cron Job screen, scroll down and turn off the following if checked: **Display Notification, Play Sound with Notification**, and **Don’t Run When Device Locked**. We do this since we are calling this shortcut frequently and don’t want to be distracted with too many notifications when the shortcut is run. 
-7. Enable **Exclude From Success Notifications**. ![Cronios Watcher Cron Job](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Cron-Job.png?w=1280)
-8. Tap the Cronios Home button. 
-
-Cronios Watcher is now ready. Whenever Cronios is running, it will call the **Cronios Watcher** shortcut every minute.
-
-The shortcut will then execute identically named **Cronios Watcher** Scriptable script, which does the following:
-
- 1. Removes all pending Cronios Watcher notifications.
- 2. Creates new Cronios Watcher notifications in the future, defined by the values in `kNotificationInterval` array (values represent minutes from the current date).
-
- If Cronios were to stop, the notifications in the future will be displayed. Tapping the notification banner will cause the shortcut named `kShortcutName` to be launched from the Shortcuts app. By default this points to the [**Cronios Daemon shortcut**](#cronios-Daemon). This is preferable to Cronios shortcut because the Cronios Daemon shortcut automatically launches Cronios in Run Continuously Mode.  
-
 ### How Long Can Cronios Run?
 Unfortunately, There is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Your experience may vary. Let the community know how long you can get Cronios to run!
 
 >Note: Remember, your cron jobs and shortcuts will not execute if Cronios is not running.
 
-I like to run shortcut that speaks something on a periodic basis. If I don't hear the prompt after some time, I'll know to check on the status of Cronios. 
+>Running the Speak Quick Beep and the Cronios Watcher shortcuts, I was able to get a runtime of 2024 minutes on my iPhone. My longest uptime on the iPad was nearly 4 hours. 
 
 ### Battery Life
 Battery life is a concern if you're going to be running Cronios in continuous monitoring mode for long stretches of time. When Cronios is active, it's constantly pinging itself and evaluating the crontab several times a  minute. With great automation power comes the tradeoff of diminished battery life, so get that extra long charging cable cable and stay plugged in!
@@ -597,6 +625,10 @@ Cronios is highly configurable. You access Settings from the Cronios Home screen
 ###  Use Local Time
 By default, Cronios matches schedules using the local time of the device. Disable this to make Cronios use [Coordinated Universal Time](https://en.m.wikipedia.org/wiki/Coordinated_Universal_Time) (UTC) instead. Remember your cron jobs will need their expressions modified to support whatever setting you choose. 
 
+<span id="auto-save" class="section-header"></span>
+### Auto Save
+Automatically save changes to a new or existing cron job while in the Edit Cron Job screen. Otherwise, you will have to tap on the **Save Changes** menu item. This setting is on by default. 
+
 ### Use Cron Expression Editor 
 By default, editing a cron job's schedule opens up the **Cron Expression Editor**. If you are familiar with entering cron expressions manually, disable this preference. In place of the CEE, a standard Ask For Input dialog will appear when editing a cron job's schedule.
 
@@ -630,13 +662,20 @@ Determines whether a cron job will display a banner notification right before sh
 Set this if you want a sound to accompany the notification. 
 
 >**What about custom sounds?**
-Unfortunately, the **Play Sound** action requires Shortcuts to be in the foreground to play the audio. So, for the time being, Cronios cannot play custom sounds for when your shortcuts run. 
+Unfortunately, the **Play Sound** action requires Shortcuts to be in the foreground to play the audio. So, for the time being, Cronios cannot play custom sounds when your shortcuts run. 
 
 ### Use Fuzzy *️⃣ Evaluation 
 Sets new cron jobs to evaluate their schedules using the Fuzzy *️⃣ algorithm. Fuzzy *️⃣ executes a cron job once per unique matched schedule. See the [section on Fuzzy *️⃣ for more details](#fuzzy-star).
 
 ### Notify Shortcut
 Sends the [Cronios Dictionary](#notify-shortcut-cronios-dictionary) as input to the shortcut.
+
+### Lock Detection
+Check this to prevent shortcuts from running when the device screen brightness is set to 0. Cronios considers this to mean that the device is locked. 
+
+>Since there is no direct way to determine whether the device is locked, Cronios checks the screen brightness. If you routinely use your iPhone at low brightness settings and want to continue to use Cronios, be sure to set your brightness to just above 0. 
+
+Note that the device may be locked and the screen on. Cronios can’t detect this case. 
 
 <hr />
 
