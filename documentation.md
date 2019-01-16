@@ -439,14 +439,19 @@ Tapping play while viewing Cronios' code will cause Shortcuts to visually run th
 
 >Unless you're a developer and want to see what's happening underneath the hood of Cronios, don't run Cronios from the Edit screen in Shortcuts.
 
-Rather, run Cronios from the Shortcuts Home screen or use the [**Cronios Daemon** shortcut](#cronios-daemon) for faster access to Cronios via Siri or from the iOS Home screen. 
-
-![Launch Cronios from the Shortcuts Home screen — not from the Edit screen — or use the Cronios Daemon shortcut.](https://atow.files.wordpress.com/2018/12/7FF39B4B-9A83-487C-B62F-5EACAD434A2C.png?w=1280)
-
 <span id="cronios-daemon" class="section-header"></span>
+### Cronios Daemon Shortcut 
+Always run Cronios from the Shortcuts Home screen or use the [**Cronios Daemon**](#cronios-daemon) shortcut for faster access to Cronios via Siri and from the iOS Home screen. 
+
+![Launching Cronios Daemon from Shortcuts Home, the iOS Home screen, and via Siri](https://atow.files.wordpress.com/2019/01/Launching-Cronios-from-Shortcuts-the-iOS-Home-screen-and-via-Siri.-.png?w=1280)
+
+
+![Cronios Daemon Shortcut](https://atow.files.wordpress.com/2019/01/Cronios-Daemon-Shortcut.png?w=1280)
+
 The **Cronios Daemon** shortcut comes packaged with Cronios. Choose **Install Cronios Daemon Shortcut…** from the Home screen or Settings. You'll be redirected to a Safari page where you can tap on a link to install it in Shortcuts. From there, add the shortcut to your iOS Home screen and give it a Siri activation phrase, such as "Activate Cronios".
 
-![Running the Cronios Daemon](https://atow.files.wordpress.com/2018/12/7F800F0F-7591-423D-974F-7F89BDB69F60.png&w=270)
+![Installing Cronios Daemon ](https://atow.files.wordpress.com/2019/01/Installing-Cronios-Daemon.png?w=1280)
+
 
 Now, at any point during the day, you can say, "Activate Cronios" to start monitoring your Crontab.
 
