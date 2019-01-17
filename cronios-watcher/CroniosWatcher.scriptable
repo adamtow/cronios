@@ -7,42 +7,28 @@
  * Initial installation is a multi-step process involving Scriptable and Shortcuts.
  *
  * -- In Scriptable -- 
- * 1) Modify the kNotificationInterval below according to how often you want to be notified.
+ * 1) If desried, modify the kNotificationInterval constant according to how often you want to be notified.
  * 2) Run this script to create a Siri Suggestion in the Shortcuts app.
- *
- * -- In Shortcuts --
- * 1) Open Shortcuts.
- * 2) Create a new shortcut.
- * 3) Name it "Cronios Watcher".
- * 4) Tap "Siri Suggestions" in the left-hand sidebar.
- * 5) Tap "Run Cronios Watcher" to add it to the shortcut.
- * 6) Tap "Done".
  *
  * -- In Cronios --
  * 1) Open Cronios.
- * 2) Tap "New Cron Job…".
- * 3) Give your cron job a name (i.e. Cronios Watcher).
- * 4) Set the schedule to run every minute (* * * * *).
- * 5) Assign the "Cronios Watcher" shortcut to the cron job.
- * 6) Enable the cron job.
- * 7) Save the cron job.
+ * 2) Tap Settings…
+ * 3) Tap Notify When Cronios Stops Running.
+ * 4) Tap Yes.
  *
- * Cronios Watcher is now ready. Whenever Cronios is running,
- * it will call the "Cronios Watcher" every minute.
- * The shortcut will then execute this Scriptable script,
- * which does the following:
+ * Cronios Watcher is now ready. Each minute while Cronios is running, it will:
  * 
  * 1) Removes all pending Cronios Watcher notifications.
  * 2) Creates new Cronios Watcher notifications in the future, defined by the values
  * in kNotificationInterval array (values represent minutes from the current date).
  * 
  * If Cronios were to stop, the notifications in the future will be displayed.
- * Tapping the notification banner will cause the shortcut named kShortcutName to
+ * Tapping the notification banner will cause the shortcut "Cronios Daemon" to
  * be launched from the Shortcuts app.
  *
  */
 
-// Specify how many notifications you want to display in minutes.
+// Specify the number notifications and frequency of notifications (in minutes).
 const kNotificationInterval = [
 	2,
 	5,
@@ -52,12 +38,11 @@ const kNotificationInterval = [
 	60
 ];
 
-// Specify the shortcut to run
-const kCroniosName = "Cronios";
-
-// Cronios Daemon is the preferred shortcut to run since
-// there are less than a dozen actions instead of 2800.
+// Cronios Daemon is the preferred shortcut to run since there are only
+// four actions in Cronios Daemon compared to 3,300 in Cronios.
 const kShortcutName = "Cronios Daemon";
+
+const kCroniosName = "Cronios";
 
 // Specify the title of the notification 
 const kTitle = `Tap to Relaunch ${kCroniosName}`;
@@ -76,7 +61,7 @@ const kSound = "failure"; // default, accept, alert, complete, event, failure, p
 function CroniosWatcher() {}
 
 /**
- * Schedules notifications to relaunch the Cronios according to the 
+ * Schedules notifications to relaunch Cronios according to the 
  * values (in minutes) defined in the kNotificationInterval array.
  * 
  */
@@ -129,5 +114,3 @@ let watcher = new CroniosWatcher();
 watcher.scheduleNotifications();
 
 Script.complete();
-
-
