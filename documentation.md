@@ -80,7 +80,7 @@ As long as Cronios is active[^2], it will check every minute for any shortcut th
 
 Cronios runs on devices with iOS 12 with [Shortcuts 2.1.2](https://itunes.apple.com/us/app/shortcuts/id915249334?mt=8) (or greater) installed. The Cronios shortcut is free to download and use. The source code is licensed under the [MIT License](#license).
 
-Cronios can be optionally configured to notify you when it stops running. Enabling this feature requires the installation of [Scriptable](https://scriptable.app), a free JavaScript automation tool for iOS. 
+Cronios can be optionally configured to notify you when it stops running. Enabling this feature requires the installation of [Scriptable](https://scriptable.app), a free app that lets you automate iOS using JavaScript.
 
 Content, logs and preferences are stored separately in iCloud Drive for each device you own[^3], so you can use Cronios with multiple iPhones and iPads at the same time.
 
@@ -207,7 +207,7 @@ With **Keep-Alive Beep** enables, you can even lock your iOS device and Cronios 
 >Do note that if your cron jobs require user interaction, you will have to unlock your device or else Cronios will experience an error and quit. There are ways to inform the user of this proactively and avoid a Cronios crash. Read the section for [developers](#developer) for more information. 
 
 ### Be Notified When Cronios Stops with Cronios Watcher and Scriptable
-We accomplish our second goal, that of being notified in the event that Cronios does stop running, with a little help from [Scriptable](https://scriptable.app). Created by Simon B. Størving, Scriptsble is a JavaScript development enviroment for iOS. It allows you to create scripts that can be run from Shortcuts and Siri. It also has the ability to schedule notifications, which we use to notify us when Cronios has stopped running. 
+We accomplish our second goal, that of being notified in the event that Cronios does stop running, with a some help from [Scriptable](https://scriptable.app). Created by Simon B. Støvring, Scriptable is a JavaScript development enviroment for iOS. It allows you to create scripts that can be run from Shortcuts and Siri. It also has the ability to schedule notifications, which we use to notify us when Cronios has stopped running. 
 
 [**Cronios Watcher**](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.scriptable) is a script for use with Scriptable and Cronios that does two things:
 
@@ -233,7 +233,7 @@ Here’s how you install and configure Scriptable and **Cronios Watcher**:
 10. Tap the Play button to run the script. This will create a shortcut in the Siri Suggestions actions section in Shortcuts. 
 11. Tap Done.
 
->Scriptable is a great developer tool. What’s also great about it is that it is completely free to download and use. That said, consider sending a tip to its developer, Simon B. Størvring. Doing so will show your appreciation to Simon and contribute to Scriptable’s future development. Tap Settings in Scriptable and tap Tip Jar.
+>Scriptable is a great developer tool. What’s also great about it is that it is completely free to download and use. That said, consider sending a tip to its developer, Simon B. Støvring. Doing so will show your appreciation to Simon and contribute to Scriptable’s future development. Tap Settings in Scriptable and tap Tip Jar.
 
 #### In Shortcuts
 1. Make sure you have the [**Cronios Daemon** shortcut](#cronios-daemon) installed. 
