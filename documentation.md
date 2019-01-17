@@ -173,18 +173,18 @@ The **Cronios Daemon** shortcut comes packaged inside of Cronios. Choose **Insta
 
 Now, at any point during the day, you can say, `Activate Cronios` to start monitoring your cron jobs!
 
-<span id="keep-alive" class="section-header"></span>
-## Keeping Cronios Alive
+<span id="keeping-cronios-active" class="section-header"></span><span id="keep-alive" class="section-header"></span>
+## Keeping Cronios Active and Alive
 Since Cronios is not an built-in component of iOS, keeping it active in the background is a non-trivial task. iOS is constantly reviewing the apps you are running and suspending those that it thinks are not actively being used. 
 
->If you have Cronios running in the foreground (i.e. the Shortcuts app is the active application), it will not cause your iOS device to sleep, regardless of your Auto-Lock preference in Settings &raquo; Display and Brightness. This is because the shortcut is continually monitoring your Crontab every minute; as a result, iOS thinks that you are actively using it and won't go to sleep. If you use an iPad that's always plugged in, this is great because you can use Split View to keep Cronios in the foreground. 
+>If you have Cronios running in the foreground (i.e. the Shortcuts app is the active application), your iOS device will not sleep, regardless of your Auto-Lock preference in Settings &raquo; Display and Brightness. This is because the shortcut is continually monitoring your Crontab every minute; as a result, iOS thinks that you are actively using it and won't go to sleep. If you use an iPad that's always plugged in, this is great because you can use Split View to keep Cronios in the foreground. 
 
 There are two goals Cronios must accomplish to maximize its uptime. 
 
 1. Keep Cronios and Shortcuts active in the eyes of iOS so it doesn’t prematurely suspend them both. 
 2. Notify you in the event that Cronios does stop running. 
 
-With Cronios 1.0.2, these goals are achieved with the **Keep-Alive Beep** setting and the **Cronios Watcher** script for [Scriptable](https:/:scriptable.app).
+With Cronios 1.0.2, these goals are achieved with the [**Keep-Alive Beep**](#keep-alive-beep) setting and the [**Cronios Watcher** script for Scriptable](#cronios-watcher).
 
 <span id="keep-alive-beep" class="section-header"></span>
 ### Keep-Alive Beep
@@ -192,13 +192,13 @@ The Keep-Alive Beep is a short and unobtrusive “beep” sound that is played e
 
 ![Keep-Alive Beep Text](https://atow.files.wordpress.com/2019/01/Keep-Alive-Beep-Text.png?w=1280)
 
->I have tried actions to vibrate the device, change the brightness by an imperceptible amount, and adjust the system volume, but none of these work as well as Speak Text. 
+>I have tried actions to vibrate the device, change the brightness by an imperceptible amount, and adjust the system volume, but none of these work as well as Speak Text.
 
 You can customize the beep text in [Settings](#settings) and adjust the Siri voice and language used via the shortcut’s Customize Shortcut screens. 
 
 ![Setting Siri Voice and Language for the Keep-Alive Beep](https://atow.files.wordpress.com/2019/01/Setting-Siri-Voice-and-Language-for-the-Keep-Alive-Beep.png?w=1280)
 
->If you find an even less obtrusive text string to speak, let the Cronios community know! 
+>If you find an even less obtrusive text string to speak, let the Cronios community know! I’ve tried using an invisible whitespace character, but it appears like iOS needs to speak something in order for Shortcut’s active status to be maintained.
 
 ![Cronios Watcher notifies you when Cronios stops running](https://atow.files.wordpress.com/2019/01/Relaunch-Cronios-in-Run-Continuously-Mode-with-one-tap.png?w=1280)
 
@@ -206,15 +206,16 @@ With **Keep-Alive Beep** enables, you can even lock your iOS device and Cronios 
 
 >Do note that if your cron jobs require user interaction, you will have to unlock your device or else Cronios will experience an error and quit. There are ways to inform the user of this proactively and avoid a Cronios crash. Read the section for [developers](#developer) for more information. 
 
+<span id="cronios-watcher"></span> 
 ### Be Notified When Cronios Stops with Cronios Watcher and Scriptable
-We accomplish our second goal, that of being notified in the event that Cronios does stop running, with a some help from [Scriptable](https://scriptable.app). Created by Simon B. Støvring, Scriptable is a JavaScript development enviroment for iOS. It allows you to create scripts that can be run from Shortcuts and Siri. It also has the ability to schedule notifications, which we use to notify us when Cronios has stopped running. 
+To be notified in the event that Cronios does stop running, we get some help  from [Scriptable](https://scriptable.app), is a JavaScript development enviroment for iOS from Simon B. Støvring. Scriptable allows you to create JavaScript scripts that can be run from Shortcuts and Siri. It also has the ability to schedule notifications, which we use to notify us when Cronios has stopped running. 
 
-[**Cronios Watcher**](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.scriptable) is a script for use with Scriptable and Cronios that does two things:
+[**Cronios Watcher**](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.js) is a script for use with Scriptable and Cronios that does two things:
 
 1. Creates reminder notifications in the future for you to restart Cronios in “Run Continuously” Mode. 
 2. Clears out any previously set reminders.
 
-When you have Scriptable and the Cronios Watcher Script installed, you’ll be notified when Cronios has stopped running within minutes. Tapping on the notification banner will relaunch Cronios in **Run Continuously** mode via the [**Cronios Daemon**](#cronios-daemon) shortcut. 
+With the **Notify When Cronios Stops Running** preference is set and Scriptable and the Cronios Watcher Script installed, you’ll be notified when Cronios has stopped running within minutes. Tapping on the notification banner will relaunch Cronios in **Run Continuously** mode via the [**Cronios Daemon**](#cronios-daemon) shortcut. 
 
 >Your downtime will be minimized and Cronios will be running for longer periods of time throughout the day when you enable **Keep-Alive** and **Cronios Watcher**.  
 
@@ -228,7 +229,7 @@ Here’s how you install and configure Scriptable and **Cronios Watcher**:
 5. Tap and edit the name. Call it `Cronios Watcher`. ![Create Scriptable script for Cronios Watcher](https://atow.files.wordpress.com/2019/01/Create-Scriptable-Script.png?w=1280)
 6. Change the icon and color if desired. 
 7. Tap Done. 
-8. In the main script area, copy and paste [the contents of the following file on GitHub](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.scriptable). ![Cronios Watcher Scriptable Script](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Scriptable-Script.png?w=1280)
+8. In the main script area, copy and paste [the contents of the following file on GitHub](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-watcher/CroniosWatcher.js). ![Cronios Watcher Scriptable Script](https://atow.files.wordpress.com/2019/01/Cronios-Watcher-Scriptable-Script.png?w=1280)
 9. If desired, change the values in the `kNotificationInterval` array according to the reminder schedule you want to have for Cronios Watcher. The default reminds you to restart the [**Cronios Daemon** shortcut](#cronios-Daemon) after 2, 5, 10, 15, 30, and 60 minutes of no detectable Cronios activity. 
 10. Tap the Play button to run the script. This will create a shortcut in the Siri Suggestions actions section in Shortcuts. 
 11. Tap Done.
@@ -242,7 +243,7 @@ Here’s how you install and configure Scriptable and **Cronios Watcher**:
 1. Open Cronios. 
 2. Tap **Settings**. 
 3. Tap **Notify When Cronios Stops Running**. 
-4. Confirm that you have both Scriptable and the Cronios Watcher Script installed. 
+4. Confirm that both Scriptable and the Cronios Watcher Script are installed.
 
 To test this, run Cronios in “Run Continuously” mode. After one evaluation period, stop it. Wait for two minutes and you will see a banner notification (make sure a Do Not Disturb is disabled and that Shortcuts notifications are being displayed) to relaunch Cronios. 
 
@@ -260,16 +261,18 @@ Here are some additional techniques to keep it active and running in the backgro
 ![Cronios runs great in Split View on the iPad](https://atow.files.wordpress.com/2018/12/ivborw0kggoaaaansuheugaadgaaaajucayaaad194waaaacxbiwxmaaastaaaleweampwyaabc-2-1-1.png?w=1280)
 
 ### How Long Can Cronios Run?
-Unfortunately, There is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Your experience may vary. Let the community know how long you can get Cronios to run!
+Unfortunately, There is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Now that you can be [notified within minutes of Cronios stopping](#cronios-watcher), however, your uptime will be much higher throughout the day. Your experience may vary. Let the community know how long you can get Cronios to run!
 
 >Note: Remember, your cron jobs and shortcuts will not execute if Cronios is not running.
 
->With Keep-Alive Beep and Cronios Watcher enables, I was able to get a runtime of 204 minutes on my iPhone. My longest uptime on the iPad was nearly 4 hours. 
+>With Keep-Alive Beep and Cronios Watcher enabled, I was able to get a runtime of 204 minutes on my iPhone. My longest uptime on the iPad was nearly 4 hours.
 
 ### Battery Life
 Battery life is a concern if you're going to be running Cronios in continuous monitoring mode for long stretches of time. When Cronios is active, it's constantly pinging itself and evaluating the crontab several times a minute. With great automation power comes the tradeoff of diminished battery life, so get that extra long charging cable cable and stay plugged in!
 
 >All the better to have a [croncut that reminds you of your battery level](https://routinehub.co/shortcut/1370) throughout the day!
+
+With the **Keep-Alive Beep** and the **Cronios Watcher** script, you can even lock your device and have Cronios continue to run in the background beyond the usual 2-3 minutes for apps.
 
 ***
 
