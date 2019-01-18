@@ -1,9 +1,26 @@
 # Cronios
-
 **Run Your Shortcuts on an Automatic Schedule!**
 Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts to run automatically in the background on the dates, times, ranges, and intervals you specify, without any interaction on your part!
 
+## What’s New in Version 1.1
+Cronios 1.1 introductions some exciting new features:
+
+- **Keep-Alive Beep**: Keep Cronios running much longer in the background with a quick and unobtrusive beep every evaluation period.
+- **Cronios Watcher**: Get notified within minutes of Cronios stopping. One tap gets Cronios relaunched again in “Run Continuously” mode. Requires [Scriptable app](https://scriptable.app) be installed on your iOS device.
+- **Priority**: Set the priority of cron jobs, which determines the order in which they run. Choose from Critical, High, Normal, and Low.
+- **Lock Detection**: Have a shortcut that can’t run while your device is locked? Set the Lock Detection option, and it won’t run.
+- **Exclude From Success Notifications**: Cronios displays a list of shortcuts it runs after every evaluation. Setting this cron job option excludes the shortcut from appearing on the list.
+- **Developer Documentation Updates**: More information for shortcut developers to create great background-aware shortcuts.
+- **Auto-Save**: Changes made to cron jobs in the New/Edit Cron Job screen are automatically saved.
+- **Icons**: Simplified and standardized icons used in menus.
+- **Faster Performance**: Cronios returns to the Cronios Home screen faster after editing a cron job.
+- **Bug Fixes**: What’s a release without some bug fixes?
+
+See the [full version history here](#version-history).
+
 ![Cronios, the Shortcuts Scheduler for iOS](https://atow.files.wordpress.com/2018/12/55ACB6B3-6224-4C35-A4E1-12A0348C5F64.png?w=1280)
+
+*** 
 
 ## Table of Contents
 
@@ -243,9 +260,11 @@ Here’s how you install and configure Scriptable and **Cronios Watcher**:
 1. Open Cronios. 
 2. Tap **Settings**. 
 3. Tap **Notify When Cronios Stops Running**. 
-4. Confirm that both Scriptable and the Cronios Watcher Script are installed.
+	4. Confirm that both Cronios Daemon, Scriptable app, and the Cronios Watcher Scriptable script are all installed.
 
-To test this, run Cronios in “Run Continuously” mode. After one evaluation period, stop it. Wait for two minutes and you will see a banner notification (make sure a Do Not Disturb is disabled and that Shortcuts notifications are being displayed) to relaunch Cronios. 
+To test this, run Cronios in “Run Continuously” mode. After one evaluation period, stop it. Wait for two minutes and you will see a banner notification to relaunch Cronios.
+
+>Make sure that Do Not Disturb is disabled and that Shortcuts can send you notifications, or you will not see the notification.
 
 Tapping the notification banner will cause the [**Cronios Daemon**](#cronios-Daemon) shortcut to relaunch Cronios back in “Run Continuously” mode. Every time Cronios successfully processes your list of cron jobs, it will call Cronios Watcher to reset the relaunch reminders. 
  
@@ -261,11 +280,13 @@ Here are some additional techniques to keep it active and running in the backgro
 ![Cronios runs great in Split View on the iPad](https://atow.files.wordpress.com/2018/12/ivborw0kggoaaaansuheugaadgaaaajucayaaad194waaaacxbiwxmaaastaaaleweampwyaabc-2-1-1.png?w=1280)
 
 ### How Long Can Cronios Run?
-Unfortunately, There is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Now that you can be [notified within minutes of Cronios stopping](#cronios-watcher), however, your uptime will be much higher throughout the day. Let the community know how long you can get Cronios to run!
+Unfortunately, there is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Now that you can be [notified within minutes of Cronios stopping](#cronios-watcher), however, your uptime will be much higher throughout the day. Let the community know how long you can get Cronios to run!
+
+![May you never see the -9806 error while running Cronios](https://atow.files.wordpress.com/2019/01/9806-Error.-May-you-never-see-this-while-running-Cronios..png?w=1280)
 
 >Note: Remember, your cron jobs and shortcuts will not execute if Cronios is not running.
 
-With Keep-Alive Beep and Cronios Watcher enabled, my longest runtime streak on an iPhone X was 204 minutes. My longest uptime on the iPad was four hours.
+With **Keep-Alive Beep** and **Cronios Watcher** enabled, my longest runtime streak on an iPhone X was 204 minutes. My longest uptime on the iPad was four hours.
 
 ### Battery Life
 Battery life is a concern if you're going to be running Cronios in continuous monitoring mode for long stretches of time. When Cronios is active, it's constantly pinging itself and evaluating the crontab several times a minute. With great automation power comes the tradeoff of diminished battery life, so get that extra long charging cable for your iPad or [one of the new iPhone Smart Battery Cases](https://9to5mac.com/2019/01/15/apple-officially-releases-smart-battery-cases-for-iphone-xs-max-xr-with-qi-charging-support/) and stay powered on!
@@ -283,34 +304,37 @@ Remember Cronios is a shortcut itself and is designed to run indefinitely until 
 Whether or not a shortcut outside of Cronios will run depends on where and how the shortcut was invoked:
 
 - Shortcuts App 
-- Share Sheet 
-- Siri Shortcuts 
+- Siri Shortcuts
+- Share Sheet
 - Shortcut Widgets in Notification Center
 - iOS Home Screen
 
+For the ensuing sections, please refer to the following flowchart:
+
+![Running other shortcuts while Cronios is running](https://raw.githubusercontent.com/adamtow/cronios/master/images/cronios-running-other-shortcuts-flowchart.png)
+
 ### Shortcuts App
 If Cronios is running and you go to the Shortcuts app to run a shortcut, you need to tap Cronios' stop button before you can run your shortcut.
-
-### Share Sheet
-You can use shortcuts from the iOS Share sheet as long as the shortcut does not switch back to the Shortcuts application.
  
 ### Siri Shortcuts
 If you use Siri to run a shortcut, it will terminate Cronios (if it is currently running) and run the shortcut.
 
-### Shortcut Widgets in Notification Center
-Simple widgets that do not switch back to the Shortcuts app should work even while Cronios is running. Complicated shortcuts may prematurely terminate Cronios.
+### Share Sheet
+You can use shortcuts from the iOS Share sheet as long as the shortcut does not switch back to the Shortcuts application using the **Continue in App** action. Note: Shortcuts run from the widgets area have limited memory with which to run, so they may not work entirely regardless of whether or not Cronios is running.
 
 ### iOS Home Screen
-If Cronios was launched from the Shortcuts app and you tap on another shortcut from the iOS Home Screen (which you add via the Add to Home Screen feature), the Shortcuts app will launch but your shortcut will not run until you tap the stop button in Cronios.
+If Cronios was launched from the Shortcuts app and you tap on another shortcut from the iOS Home Screen (which you added via the Add to Home Screen feature), the Shortcuts app will launch, but your shortcut will not run.
 
-However, if Cronios was launched from the Home Screen (i.e. via the Cronios Daemon Helper shortcut), tapping a different shortcut from the Home Screen will launch Shortcuts, close Cronios, and run your shortcut.
+If Cronios (via the [**Cronios Daemon**](#cronios-daemon)) was launched from the iOS Home Screen, however, tapping a shortcut from the iOS Home Screen will launch Shortcuts, close Cronios Daemon, and run your shortcut.
+
+### Shortcut Widgets in Notification Center
+Shortcuts that do not switch back to the Shortcuts app via the **Continue in App** action should work even while Cronios is running. Note: Like with the iOS Share sheet, shortcuts run form the widgets area have limited memory with which to run, so they may not work entirely regardless of whether or not Cronios is running.
 
 ***
 
 <span id="interface" class="section-header"></span>
 ## Exploring the Cronios Interface
-
-Let's take a tour of the rest of the Cronios interface. The Home screen is segmented into the following sections:
+Now, Let's take a tour of the rest of the Cronios interface. The Home screen is segmented into the following sections:
 
 - [System Information](#system-info)
 - [Run Commands](#run)
@@ -319,19 +343,17 @@ Let's take a tour of the rest of the Cronios interface. The Home screen is segme
 - [About and Settings](#about-and-settings)
 
 <span id="system-info" class="section-header"></span>
-
 ### System information
 At the top of the Cronios Home screen is information about the current Cronios process and its previous run.
 
 - **Current Process ID (PID)**: The current ID for this run of Cronios. You can refer to this ID when searching through Cronios logs.
 - **Last Run**: the date Cronios was last started.
 - **Last Check**: the date that Cronios last checked the Crontab. 
-- **Last Run Uptime**: the amount of time in minutes Cronios was running during the last run cycle. 
+- **Last Run Uptime**: the amount of time in minutes Cronios was running during the last run cycle.
 
 ![Cronios Home Screen](https://atow.files.wordpress.com/2018/12/13F89043-743A-4064-B7E7-260CAC4ECCDC.png?w=1280)
 
 <span id="run" class="section-header"></span>
-
 ### Run Commands
 This section features the two commands used to launch Cronios in monitoring mode:
 
@@ -351,15 +373,15 @@ The Crontab is the list of cron jobs on your iOS device. Each cron job lists the
 
 Additional icons may be shown next to the shortcut indicating the following options associated with the cron job:
 
+- **Missing** ❓: The shortcut could not be found. It may have been deleted or renamed.
 - **Requires Network Access** ☁️ : The shortcut needs network connectivity to function. If you are offline, Cronios will not run this cron job.
 - **Requires User Interaction** ✋🏻 : The shortcut may require user interaction within the Shortcuts application.
-- **Missing** ❓: The shortcut could not be found. It may have been deleted or renamed.
 - **Fuzzy** *️⃣: The cron job will run in [Fuzzy Star Mode](#fuzzy-star). Cron jobs in this mode will run once per unique match.  
 - **Display Notification**💬: A notification banner will appear when the assigned shortcut runs.
 - **Play Sound** 🔔: The notification banner will be accompanied by a sound.
 - **Notify Shortcut** 📗: The [Cronios dictionary](#notify-shortcut-cronios-dictionary) will be sent to the shortcut. Developers can use this dictionary to change operations depending on how the shortcut was launched (i.e. manually or in the background via Cronios).
 - **Lock Detection** 🔒: If the screen brightness is set to zero, Cronios will consider the device locked. Checking this option will prevent your shortcut from running. This is useful if your shortcut requires user interaction or access to private data (Health data for instance). 
-- **Exclude From Success Notifications** 🌒: Cronios displays the names of all shortcuts it runs during each evaluation period. If you have a shortcut that you do not want to appear in the list, enable this option. This is useful for shortcuts that run frequently, like the [**Keep Cronios Awake shortcut**](#keeping-cronios-alive). 
+- **Exclude From Success Notifications** 🌒: Cronios displays the names of all shortcuts it runs during each evaluation period. If you have a shortcut that you do not want to appear in the list, enable this option. This is useful for shortcuts that run frequently.
 
 >Note: You can export your Crontab into a human-readable format by choosing **Export Crontab…** in Settings. 
 
@@ -1017,7 +1039,7 @@ Sometimes Cronios is running just fine for hours at a time before failing with a
 # Version History
 - 1.0.0 (2018-12-30) - Initial release.
 - 1.0.1 (2018-12-30) - Fixed error when after running Check for Updates.
-- 1.1.0 (2019-01-19) - Additional options added to cron jobs: Priority, Lock Detection, and Exclude From Success Notifications. Crontab is sorted according to active status, priority and description. Added Keep-Alive Beep feature and Cronios Watcher support with Scriptable. Auto Save of cron jobs from the New/Edit Cron Job screen. New icon set. Bug fixes.
+- 1.1.0 (2019-01-19) - Keep-Alive Beep. Cronios Watcher using Scriptable support. Additional options added to cron jobs: Priority, Lock Detection, and Exclude From Success Notifications. Crontab is sorted according to active status, priority and description. Auto Save of cron jobs from the New/Edit Cron Job screen. New icon set. Performance improvements. Documentation updates. Bug fixes.
 
 <span id="license" class="section-header"></span>
 # License
