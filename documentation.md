@@ -13,11 +13,11 @@ Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts
 - [Getting Started](#getting-started)
 - [Launching Cronios](#launching-cronios)
 - [Keeping Cronios Active](#keeping-cronios-active)
+- [Running Other Shortcuts Outside of Cronios](#running-other-shortcuts)
 - [Exploring the Cronios Interface](#interface)
 - [Editing Cron Jobs](#cron-jobs)
 - [Understanding Cron Schedule Expressions](#expressions)
 - [Fuzzy *️⃣](#fuzzy-star)
-- [Running Other Shortcuts Outside of Cronios](#running-other-shortcuts)
 - [Settings](#settings)
 - [Developing Shortcuts Optimized for Cronios](#developer)
 - [Cronios Daemon Helper Shortcut](#cronios-daemon)
@@ -273,6 +273,37 @@ Battery life is a concern if you're going to be running Cronios in continuous mo
 >All the better to have a [croncut that reminds you of your battery level](https://routinehub.co/shortcut/1370) throughout the day!
 
 With the **Keep-Alive Beep** and the **Cronios Watcher** script, you can even lock your device and have Cronios continue to run in the background beyond the usual 2-3 minutes for apps.
+
+***
+
+<span id="running-other-shortcuts" class="section-header"></span>
+## Running Other Shortcuts Outside of Cronios
+Remember Cronios is a shortcut itself and is designed to run indefinitely until it is terminated by the user or iOS. You should be aware of the times and situations when you can run other shortcuts at the same time as Cronios.
+
+Whether or not a shortcut outside of Cronios will run depends on where and how the shortcut was invoked:
+
+- Shortcuts App 
+- Share Sheet 
+- Siri Shortcuts 
+- Shortcut Widgets in Notification Center
+- iOS Home Screen
+
+### Shortcuts App
+If Cronios is running and you go to the Shortcuts app to run a shortcut, you need to tap Cronios' stop button before you can run your shortcut.
+
+### Share Sheet
+You can use shortcuts from the iOS Share sheet as long as the shortcut does not switch back to the Shortcuts application.
+ 
+### Siri Shortcuts
+If you use Siri to run a shortcut, it will terminate Cronios (if it is currently running) and run the shortcut.
+
+### Shortcut Widgets in Notification Center
+Simple widgets that do not switch back to the Shortcuts app should work even while Cronios is running. Complicated shortcuts may prematurely terminate Cronios.
+
+### iOS Home Screen
+If Cronios was launched from the Shortcuts app and you tap on another shortcut from the iOS Home Screen (which you add via the Add to Home Screen feature), the Shortcuts app will launch but your shortcut will not run until you tap the stop button in Cronios.
+
+However, if Cronios was launched from the Home Screen (i.e. via the Cronios Daemon Helper shortcut), tapping a different shortcut from the Home Screen will launch Shortcuts, close Cronios, and run your shortcut.
 
 ***
 
@@ -574,37 +605,6 @@ Note that this also means that if you start Cronios at 11:58 am and run it throu
 
 *** 
 
-<span id="running-other-shortcuts" class="section-header"></span>
-## Running Other Shortcuts Outside of Cronios
-Remember Cronios is a shortcut itself and is designed to run indefinitely until it is terminated by the user or iOS. You should be aware of the times and situations when you can run other shortcuts at the same time as Cronios.
-
-Whether or not a shortcut outside of Cronios will run depends on where and how the shortcut was invoked:
-
-- Shortcuts App 
-- Share Sheet 
-- Siri Shortcuts 
-- Shortcut Widgets in Notification Center
-- iOS Home Screen
-
-### Shortcuts App
-If Cronios is running and you go to the Shortcuts app to run a shortcut, you need to tap Cronios' stop button before you can run your shortcut.
-
-### Share Sheet
-You can use shortcuts from the iOS Share sheet as long as the shortcut does not switch back to the Shortcuts application.
- 
-### Siri Shortcuts
-If you use Siri to run a shortcut, it will terminate Cronios (if it is currently running) and run the shortcut.
-
-### Shortcut Widgets in Notification Center
-Simple widgets that do not switch back to the Shortcuts app should work even while Cronios is running. Complicated shortcuts may prematurely terminate Cronios.
-
-### iOS Home Screen
-If Cronios was launched from the Shortcuts app and you tap on another shortcut from the iOS Home Screen (which you add via the Add to Home Screen feature), the Shortcuts app will launch but your shortcut will not run until you tap the stop button in Cronios.
-
-However, if Cronios was launched from the Home Screen (i.e. via the Cronios Daemon Helper shortcut), tapping a different shortcut from the Home Screen will launch Shortcuts, close Cronios, and run your shortcut.
-
-***
-
 <span id="settings" class="section-header"></span>
 # Settings
 
@@ -766,7 +766,7 @@ Returns you to the Cronios Home screen.
 
 <span id="developer" class="section-header"></span>
 # Developing Shortcuts for use with Cronios
-Cronios provides the framework for creating background-aware shortcuts. It's up to developers to take full advantage of Cronios by writing great shortcuts that work in the background and on schedule.
+Cronios provides the rich framework for creating background-aware shortcuts. It's up to developers to take full advantage of Cronios by writing great shortcuts that work in the background and on schedule.
 
 This section provides useful information on how you can take full advantage of Cronios. 
 
@@ -775,6 +775,7 @@ This section provides useful information on how you can take full advantage of C
 	- [Banner Notifications](#banners)
 	- [Open App](#open-app)
 	- [Network Access](#network-access)
+	- [Lock Detection](#lock-detection)
 - [Notify Shortcut and the Cronios Dictionary](#notify-shortcut-cronios-dictionary)
 - [Testing Your Shortcuts](#testing)
 - [Cronios Crontab Format](#cronios-crontab)
@@ -796,6 +797,7 @@ With this in mind, you can do several things to alert the user's attention that 
 1. Display a banner notification. 
 2. Display a banner notification with sound. 
 3. Switch back to the Shortcuts app using the Open App action in Shortcuts.
+4. Detecting if the screen is off, which may indicate that the device is locked, and speaking to the user to unlock the device before proceeding. 
 
 <span id="banners" class="section-header"></span>
 ## Banner notifications
@@ -836,9 +838,33 @@ Don't think that you can download a huge file in the background and expect Short
 
 >Note: Here's hoping that Apple adds some solid error checking and handling for shortcut developers so we can better deal with situations like these.
 
-
 ### Location Services
 If you want to use shortcut actions that employ location services such as **Get Current Weather** or **Get Current Location** you must return to the Shortcuts application prior to calling these actions. Furthermore, it's advisable to add a wait step before the calls to **Open App** and **Get Current Weather/Location** in order to give Shortcuts time to prepare itself. Not adding the wait step will cause an error to appear in Shortcuts, which will terminate Cronios.
+
+## Lock Detection 
+Detecting if the screen is locked is possible by checking the device brightness. If the value is 0, there is a good chance that the device is locked. 
+
+>If the user manually set the device brightness to zero, Cronios will consider the device is locked for the purposes of evaluating the Lock Detection option for cron jobs. 
+
+If your shortcut:
+
+- requires user interaction
+- needs the device unlocked in order to retrieve private data such as Health data
+- needs to switch to Shortcuts to get the current location
+
+You need to code your shortcut to handle the case where the device is locked. 
+
+### Do Nothing
+You can choose to enable the **Lock Detection 🔒** option in your cron job. This will cause Cronios to skip running your shortcut if it thinks the device is locked. 
+
+You can also handle this within your own shortcut by inspecting the brightness value in the **Device Details** action. 
+
+### Prompt If Device Locked Shortcut
+[**Prompt If Device Locked**]() is a shortcut that you can learn from to get started working with shortcuts that require the device to be unlocked. If it detects that the brightness is 0, it prompts the user via the **Speak Text** action to unlock the iPhone before proceeding. 
+
+It then waits a number of seconds long enough for the lock screen to  go back to black (if an existing notification had turned on the screen). If after the wait time, the screen is still off, the shortcut returns 0. If the screen brightness is greater than 0, the shortcut returns 1. At this point, you can assume the device is unlocked and proceed with the rest of your shortcut. 
+
+>While there is no guarantee that the device is actually unlocked when the brightness is greater than 0, this is currently the best method available for ascertaining device lock status.
 
 ***
 
@@ -853,7 +879,8 @@ Experiment with running your shortcut with the following cron job options checke
 - A notification will appear if you have checked **Display Notification 💬**.
 - A sound will accompany the notification if you have **Play Sound with Notification 🔔**checked.
 - The Cronios Dictionary will be sent to your shortcut if you have **Notify Shortcut 📗** checked.
-- An alert will appear, and your shortcut will not run if you have **Requires Network Access ☁️** checked and if you are offline. 
+- An alert will appear, and your shortcut will not run if you have **Requires Network Access ☁️** checked and if you are offline.
+- If you set the brightness of your device to 0, you can simulate the **Lock Detection 🔒** option. 
 
 ***
 
@@ -884,8 +911,9 @@ You can also add the following special strings after the shortcut:
 - {{requiresInteraction}} - This will enable the **Requires Interaction** option in the cron job.
 - {{fuzzyStar}} - This will enable **Fuzzy *️⃣** evaluation for your cron job.
 - {{notifyShortcut}} - This will send the **Cronios Dictionary** to the shortcut when run.
+- {{lockDetection}} - if enabled, the shortcut will not run if the device brightness is 0. 
 
->Note: Cronios does not allow importing of notification and sound settings, as this is considered to be a user preference.
+>Note: Cronios does not allow importing of notification, sound, and exclude from success notification options, as this is considered to be a user preference.
 
 ***
 
@@ -904,6 +932,8 @@ In order to let shortcuts know that they might be running in the background, Cro
 `{
 	"Cronios": true,
 	"date": ISO 8601 Date and Time
+	"lastRun": Date string
+	"brightness": a value between 0 and 1
 }`
 
 A shortcut that requires Shortcuts to be in the foreground might use this information to display a banner notification prior to running the **Open App** command to switch back to the Shortcuts application. 
