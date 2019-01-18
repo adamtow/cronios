@@ -765,53 +765,73 @@ Returns you to the Cronios Home screen.
 ***
 
 <span id="developer" class="section-header"></span>
-# Developing Shortcuts for use with Cronios
+# Developing Background-Aware Shortcuts for Cronios
+While many shortcuts just work when run as a cron job by Cronios, others require some tweaking to operate in the background without causing Cronios to crash, which would prevent other cron jobs from executing on schedule. 
+
 Cronios provides the rich framework for creating background-aware shortcuts. It's up to developers to take full advantage of Cronios by writing great shortcuts that work in the background and on schedule.
 
 This section provides useful information on how you can take full advantage of Cronios. 
 
-- [Developing Background-Aware Shortcuts](#background-aware-shortcuts)
-	- [User Interaction](#user-interaction)
+- [Cronios Application Flowchart](#flowchart)
+- [User Interaction](#user-interaction)
 	- [Banner Notifications](#banners)
 	- [Open App](#open-app)
-	- [Network Access](#network-access)
-	- [Lock Detection](#lock-detection)
+	- [Speak Text](#speak-text)
+- [Network Access](#network-access)
+- [Lock Detection](#lock-detection)
 - [Notify Shortcut and the Cronios Dictionary](#notify-shortcut-cronios-dictionary)
 - [Testing Your Shortcuts](#testing)
 - [Cronios Crontab Format](#cronios-crontab)
 - [Third-Party Import of Cron Jobs Into Cronios](#third-party-import)
 
-<span id="background-aware-shortcuts" class="section-header"></span>
+<span id="flowchart"></span>
+## Cronios Application Flowchart
+The diagram below details the Cronios application flow. When running your shortcuts, you’ll want to start looking at the yellow box labeled `Run`.
 
-## Developing Background-Aware Shortcuts
+![Cronios App Flow Diagram](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-flowchart.png)
 
-Many shortcuts just work when run as a cron job by Cronios. Others require some tweaking to operate in the background without causing Cronios to crash, which would prevent other cron jobs from executing on schedule. 
+There are several decision points that both the user and developer can make with your cron jobs, including:
+
+- **Device is offline**
+	- User - Requires Network option is enabled. Shortcut will not run.
+	- Developer - Check network status before running script that requires the device be online.
+- **Screen brightness is 0**
+	- User - Lock Detection option is enabled. Shortcut will not run.
+	- Developer - Prompt the user to unlock device before proceeding.
+- **Notify Shortcut is enabled**
+	- Developer - Read in Cronios dictionary when your shortcut is run.
+
+If you do not handle the first two cases, Cronios may terminate prematurely, forcing the user to have to restart Cronios. The ensuing sections detail how you as a developer can handle each case.
 
 <span id="user-interaction" class="section-header"></span>
-
 ## User Interaction
 Unless you inform them, your users will have no way of knowing that your shortcut has displayed a menu or alert if the Shortcuts application is in the background. If the user never returns to the Shortcuts application, Shortcuts may ultimately terminate both your shortcut and Cronios.
 
-With this in mind, you can do several things to alert the user's attention that your shortcut requires attention:
+You can alert the user with several methods if your shortcut requires attention:
 
 1. Display a banner notification. 
-2. Display a banner notification with sound. 
+2. Display a banner notification with sound.
 3. Switch back to the Shortcuts app using the Open App action in Shortcuts.
-4. Detecting if the screen is off, which may indicate that the device is locked, and speaking to the user to unlock the device before proceeding. 
+4. Speak to the user.
+5. Speak to the user if you detect that the screen is off (which may indicate device lock status), prompting them to unlock the device before continuing.
 
 <span id="banners" class="section-header"></span>
-## Banner notifications
+### Banner notifications
 Displaying a banner notification is the least obtrusive method for asking the user to return to the Shortcuts app, but there's a chance the user will not see it if you don't accompany it with a sound.
 
 ![Notifying the user with a audible notification and awaiting return to Shortcuts](https://atow.files.wordpress.com/2018/12/8D2D8CB3-559E-4AD3-94D8-693453134027.png?w=270)
 
-If **Do Not Disturb** mode is turned on, no banners (or sounds) will be displayed to the user. In this case, Cronios and your shortcut may be waiting indefinitely for the user to return to the Shortcuts application.
+If **Do Not Disturb** mode is turned on, however, no banners or banners with sounds will be presented to the user. In this case, Cronios and your shortcut may be waiting indefinitely for the user to return to the Shortcuts application. There is currently no way to know if the device is in **Do Not Disturb** mode (developers can only set it on or off).
 
 >Note: Make sure your shortcuts can detect the [**Cronios Dictionary**](#notify-shortcut-cronios-dictionary) so it can conditionally branch depending on whether it was invoked by the user or by Cronios.
 
 <span id="open-app" class="section-header"></span>
-## Open App
-The **Open App** action switches the iOS device immediately to the selected application. It works whether Shortcuts is in the foreground or background. As a result, it is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches.
+### Open App
+The **Open App** action immediately switches to the selected application. It works whether Shortcuts is in the foreground or background but does not work when the device is locked.
+
+
+
+As a result, it is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches.
 
 >Note: When the Open App action runs, the top-left corner of the iOS screen will have small back button for returning to the previous application. If you only switch to one application (i.e. Shortcuts), this could provide some visual indication, however small, on where the user can return to after your cron job has run. The user would still have to tap on the back button. There is no way currently to do so programatically.
 
