@@ -261,24 +261,24 @@ Here are some additional techniques to keep it active and running in the backgro
 ![Cronios runs great in Split View on the iPad](https://atow.files.wordpress.com/2018/12/ivborw0kggoaaaansuheugaadgaaaajucayaaad194waaaacxbiwxmaaastaaaleweampwyaabc-2-1-1.png?w=1280)
 
 ### How Long Can Cronios Run?
-Unfortunately, There is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Now that you can be [notified within minutes of Cronios stopping](#cronios-watcher), however, your uptime will be much higher throughout the day. Your experience may vary. Let the community know how long you can get Cronios to run!
+Unfortunately, There is no definitive answer. iOS is very much of a black box when it comes to how it handles background processing. I've personally seen Cronios run for four hours straight before stopping unexpectedly. I've had other instances where Shortcuts gives me a cryptic error (-9806) while terminating Cronios after just ten minutes. Now that you can be [notified within minutes of Cronios stopping](#cronios-watcher), however, your uptime will be much higher throughout the day. Let the community know how long you can get Cronios to run!
 
 >Note: Remember, your cron jobs and shortcuts will not execute if Cronios is not running.
 
->With Keep-Alive Beep and Cronios Watcher enabled, I was able to get a runtime of 204 minutes on my iPhone. My longest uptime on the iPad was nearly 4 hours.
+With Keep-Alive Beep and Cronios Watcher enabled, my longest runtime streak on an iPhone X was 204 minutes. My longest uptime on the iPad was four hours.
 
 ### Battery Life
-Battery life is a concern if you're going to be running Cronios in continuous monitoring mode for long stretches of time. When Cronios is active, it's constantly pinging itself and evaluating the crontab several times a minute. With great automation power comes the tradeoff of diminished battery life, so get that extra long charging cable cable and stay plugged in!
+Battery life is a concern if you're going to be running Cronios in continuous monitoring mode for long stretches of time. When Cronios is active, it's constantly pinging itself and evaluating the crontab several times a minute. With great automation power comes the tradeoff of diminished battery life, so get that extra long charging cable for your iPad or [one of the new iPhone Smart Battery Cases](https://9to5mac.com/2019/01/15/apple-officially-releases-smart-battery-cases-for-iphone-xs-max-xr-with-qi-charging-support/) and stay powered on!
 
 >All the better to have a [croncut that reminds you of your battery level](https://routinehub.co/shortcut/1370) throughout the day!
 
-With the **Keep-Alive Beep** and the **Cronios Watcher** script, you can even lock your device and have Cronios continue to run in the background beyond the usual 2-3 minutes for apps.
+With the **Keep-Alive Beep** feature enabled, you can even lock your device and have Cronios continue to run in the background beyond the usual 2-3 minutes for apps. If the iPhone were to suspend Shortcuts or if there was an unrecoverable error,  **Cronios Watcher** will notify you within minutes that you will need to relaunch Cronios.
 
 ***
 
 <span id="running-other-shortcuts" class="section-header"></span>
 ## Running Other Shortcuts Outside of Cronios
-Remember Cronios is a shortcut itself and is designed to run indefinitely until it is terminated by the user or iOS. You should be aware of the times and situations when you can run other shortcuts at the same time as Cronios.
+Remember Cronios is a shortcut itself and is designed to run indefinitely until it is terminated by the user or iOS. If you want to run other shortcuts while Cronios is running, read on.
 
 Whether or not a shortcut outside of Cronios will run depends on where and how the shortcut was invoked:
 
@@ -777,8 +777,8 @@ This section provides useful information on how you can take full advantage of C
 	- [Banner Notifications](#banners)
 	- [Open App](#open-app)
 	- [Speak Text](#speak-text)
+	- [Lock Detection](#lock-detection)
 - [Network Access](#network-access)
-- [Lock Detection](#lock-detection)
 - [Notify Shortcut and the Cronios Dictionary](#notify-shortcut-cronios-dictionary)
 - [Testing Your Shortcuts](#testing)
 - [Cronios Crontab Format](#cronios-crontab)
@@ -788,7 +788,7 @@ This section provides useful information on how you can take full advantage of C
 ## Cronios Application Flowchart
 The diagram below details the Cronios application flow. When running your shortcuts, you’ll want to start looking at the yellow box labeled `Run`.
 
-![Cronios App Flow Diagram](https://raw.githubusercontent.com/adamtow/cronios/master/cronios-flowchart.png)
+![Cronios App Flow Diagram](https://raw.githubusercontent.com/adamtow/cronios/master/images/cronios-flowchart.png)
 
 There are several decision points that both the user and developer can make with your cron jobs, including:
 
@@ -799,15 +799,15 @@ There are several decision points that both the user and developer can make with
 	- User - Lock Detection option is enabled. Shortcut will not run.
 	- Developer - Prompt the user to unlock device before proceeding.
 - **Notify Shortcut is enabled**
-	- Developer - Read in Cronios dictionary when your shortcut is run.
+	- Developer - The [Cronios Dictionary](#cronios-dictionary)  is sent to your shortcut as input.
 
 If you do not handle the first two cases, Cronios may terminate prematurely, forcing the user to have to restart Cronios. The ensuing sections detail how you as a developer can handle each case.
 
 <span id="user-interaction" class="section-header"></span>
 ## User Interaction
-Unless you inform them, your users will have no way of knowing that your shortcut has displayed a menu or alert if the Shortcuts application is in the background. If the user never returns to the Shortcuts application, Shortcuts may ultimately terminate both your shortcut and Cronios.
+Unless you inform them, your users will have no way of knowing that your shortcut has displayed a menu or alert if the Shortcuts application is in the background. And, if the user never returns to the Shortcuts application, iOS may ultimately terminate both your shortcut, Shortcuts and Cronios.
 
-You can alert the user with several methods if your shortcut requires attention:
+Here’s how you can alert the user if your shortcut requires attention:
 
 1. Display a banner notification. 
 2. Display a banner notification with sound.
@@ -821,48 +821,29 @@ Displaying a banner notification is the least obtrusive method for asking the us
 
 ![Notifying the user with a audible notification and awaiting return to Shortcuts](https://atow.files.wordpress.com/2018/12/8D2D8CB3-559E-4AD3-94D8-693453134027.png?w=270)
 
-If **Do Not Disturb** mode is turned on, however, no banners or banners with sounds will be presented to the user. In this case, Cronios and your shortcut may be waiting indefinitely for the user to return to the Shortcuts application. There is currently no way to know if the device is in **Do Not Disturb** mode (developers can only set it on or off).
-
->Note: Make sure your shortcuts can detect the [**Cronios Dictionary**](#notify-shortcut-cronios-dictionary) so it can conditionally branch depending on whether it was invoked by the user or by Cronios.
+If **Do Not Disturb** mode is turned on, however, no banners or banners with sounds will be presented to the user. In this case, Cronios and your shortcut may be waiting indefinitely for the user to return to the Shortcuts application. There is currently no way to know if the device is in **Do Not Disturb** mode (it can only be set on or off).
 
 <span id="open-app" class="section-header"></span>
 ### Open App
 The **Open App** action immediately switches to the selected application. It works whether Shortcuts is in the foreground or background but does not work when the device is locked.
 
-
-
-As a result, it is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches.
+It is the most effective action, but also potentially the most jarring for the user since there is no built-in notification when the app switches.
 
 >Note: When the Open App action runs, the top-left corner of the iOS screen will have small back button for returning to the previous application. If you only switch to one application (i.e. Shortcuts), this could provide some visual indication, however small, on where the user can return to after your cron job has run. The user would still have to tap on the back button. There is no way currently to do so programatically.
 
-If you absolutely must use this technique, give the user some indication of what's happening via a banner notification and sound.
+If you absolutely must use this technique, give the user some indication of what's happening via a banner notification, banner with sound, or spoken text.
 
 ![Using Open App to force a switch back to the Shortcuts app](https://atow.files.wordpress.com/2018/12/DE900696-EC48-476A-BDB4-809DB21387A6.png?w=270) 
 
->Note: Open App is your only recourse if your shortcut requires the use of actions that employ things like Location Services, Weather, or Play Sound. If you try to run these tasks in the background, Shortcuts will raise an error and stop both your shortcut and Cronios._
+>Note: Open App is your only recourse if your shortcut requires the use of actions that employ things like Location Services, Weather, or Play Sound. If you try to run these tasks in the background, Shortcuts will raise an error and stop both your shortcut and Cronios.
 
 Open App does not provide any input to the selected app. So, if you require sending information to that application, you can:
 
-1. Save data into a location the app can read
+1. Save data into a location the app can read like a file or the clipboard.
 2. Return to Shortcuts and use the **Open URL** or **Open X-Callback URL** action. These two actions do not work when Shortcuts is running in the background.
 
-## Network Access When Offline
-If you are offline and you have a cron job scheduled that requires network access, you don't want its shortcut to run. If it did, Shortcuts would throw up an alert and terminate Cronios.
-
-In this case, be sure to check the **Requires Network Access** ☁️ checkbox. Doing so will prevent your cron job from being evaluated if the iOS device is offline.
-
-<span id="timeouts" class="section-header"></span>
-
-### Timeouts
-Don't think that you can download a huge file in the background and expect Shortcuts to make it through to the end. Your shortcut's network request may time out, causing an error to appear in the Shortcuts application, which will terminate Cronios prematurely. 
-
->Note: Here's hoping that Apple adds some solid error checking and handling for shortcut developers so we can better deal with situations like these.
-
-### Location Services
-If you want to use shortcut actions that employ location services such as **Get Current Weather** or **Get Current Location** you must return to the Shortcuts application prior to calling these actions. Furthermore, it's advisable to add a wait step before the calls to **Open App** and **Get Current Weather/Location** in order to give Shortcuts time to prepare itself. Not adding the wait step will cause an error to appear in Shortcuts, which will terminate Cronios.
-
 ## Lock Detection 
-Detecting if the screen is locked is possible by checking the device brightness. If the value is 0, there is a good chance that the device is locked. 
+Detecting if the screen is locked is possible by checking the device brightness. If the value is 0, there is a high likelihood  chance that the device is locked. 
 
 >If the user manually set the device brightness to zero, Cronios will consider the device is locked for the purposes of evaluating the Lock Detection option for cron jobs. 
 
@@ -872,7 +853,9 @@ If your shortcut:
 - needs the device unlocked in order to retrieve private data such as Health data
 - needs to switch to Shortcuts to get the current location
 
-You need to code your shortcut to handle the case where the device is locked. 
+Refer to the following flowchart to see how you can code your shortcut to handle the Device Locked case:
+
+![Cronios App Flow Diagram](https://raw.githubusercontent.com/adamtow/cronios/master/images/cronios-lock-detection-flowchart.png)
 
 ### Do Nothing
 You can choose to enable the **Lock Detection 🔒** option in your cron job. This will cause Cronios to skip running your shortcut if it thinks the device is locked. 
@@ -885,6 +868,20 @@ You can also handle this within your own shortcut by inspecting the brightness v
 It then waits a number of seconds long enough for the lock screen to  go back to black (if an existing notification had turned on the screen). If after the wait time, the screen is still off, the shortcut returns 0. If the screen brightness is greater than 0, the shortcut returns 1. At this point, you can assume the device is unlocked and proceed with the rest of your shortcut. 
 
 >While there is no guarantee that the device is actually unlocked when the brightness is greater than 0, this is currently the best method available for ascertaining device lock status.
+
+## Network Access When Offline
+If you are offline and you have a cron job scheduled that requires network access, you don't want its shortcut to run. If it did, Shortcuts would throw up an alert and terminate Cronios.
+
+In this case, be sure to check the **Requires Network Access** ☁️ checkbox. Doing so will prevent your cron job from being evaluated if the iOS device is offline.
+
+<span id="timeouts" class="section-header"></span>
+### Timeouts
+Don't think that you can download a huge file in the background and expect Shortcuts to make it through to the end. Your shortcut's network request may time out, causing an error to appear in the Shortcuts application, which will terminate Cronios prematurely. 
+
+>Note: Here's hoping that Apple adds some solid error checking and handling for shortcut developers so we can better deal with situations like these.
+
+### Location Services
+If you want to use shortcut actions that employ location services such as **Get Current Weather** or **Get Current Location** you must return to the Shortcuts application prior to calling these actions. Furthermore, it's advisable to add a wait step before the calls to **Open App** and **Get Current Weather/Location** in order to give Shortcuts time to prepare itself. Not adding the wait step will cause an error to appear in Shortcuts, which will terminate Cronios.
 
 ***
 
