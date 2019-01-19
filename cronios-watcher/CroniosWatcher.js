@@ -7,7 +7,7 @@
  * Initial installation is a multi-step process involving Scriptable and Shortcuts.
  *
  * -- In Scriptable -- 
- * 1) If desried, modify the kNotificationInterval constant according to how often you want to be notified.
+ * 1) If desired, modify the kNotificationInterval constant according to how often you want to be notified.
  * 2) Run this script to create a Siri Suggestion in the Shortcuts app.
  *
  * -- In Cronios --
