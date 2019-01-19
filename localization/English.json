@@ -33,6 +33,8 @@
 	    "alert.update.none": "You are currently running the latest version of Cronios.",
 	    "alert.welcome": "Run Your Shortcuts on an Automatic Schedule!\n\nCronios brings a UNIX-like cron scheduler to iOS. Configure your shortcuts to run in the background at fixed times, dates, ranges, and intervals.",
 	    "alert.welcome.title": "Welcome to Cronios!",
+	    "alert.whatsNew.title": "What's New in Cronios 1.1",
+	    "alert.whatsNew": "• Keep-Alive Beep keeps Cronios running longer in the background.\n\n• Cronios Watcher notifies you within minutes of Cronios stopping (requires Scriptable from the App Store)\n\n• Cron Job Priority\n\n• Device Lock Detection\n\n• Auto-Save\n\n• New Icons\n\nLearn more about these new features in Help.",
 	    "default.description": "Untitled Cron Job",
 	    "error.function.none": "No method was sent to Cronios",
 	    "error.function.none.title": "Missing Method",
