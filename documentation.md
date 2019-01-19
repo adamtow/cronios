@@ -867,6 +867,7 @@ After running the **Open App** action, place a **Wait** action of at least two s
 
 ![Add a Wait action after calling Open App](https://atow.files.wordpress.com/2019/01/Wait-Steps.png?w=1280)
 
+<span id="lock-detection"></span>
 ## Lock Detection 
 Detecting if the screen is locked is possible by checking the device brightness. If the value is 0, there is a high likelihood  chance that the device is locked. 
 
