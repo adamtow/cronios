@@ -247,7 +247,7 @@
 	    "prompt.expression": "Expression: ",
 	    "prompt.expression.test": "Expression Validator",
 	    "prompt.import": "Import Crontab\n\nEnter a valid Cronios crontab file to import cron jobs onto this device.",
-	    "prompt.import.duplicate": "A cron job exists in your Crontab with the description “{{description}}” and shortcut “{{shortcut}}”. Replace this cron job with the imported one or skip?",
+	    "prompt.import.duplicate": "A cron job exists in your Crontab with the description “{{description}}” and shortcut “{{shortcut}}”.\n\nKeep both, replace this cron job with the imported one, or skip?",
 	    "prompt.import.external": "You have imported cron jobs from an external application. Return to the application or go to Cronios Home?",
 	    "prompt.import.select": "Select cron jobs to import. Jobs marked ❌ are invalid and won't be imported.",
 	    "prompt.keepAliveScriptable": "Get notified when Cronios stops running and relaunch Cronios in “Run Continuously” mode with one tap. This feature requires:\n\n1. Cronios Daemon shortcut\n2. Scriptable from the App Store\n3. Cronios Watcher Scriptable script.\n\nConfirm that you have installed all three items before enabling this feature.",
