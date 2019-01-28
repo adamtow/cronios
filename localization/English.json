@@ -126,6 +126,7 @@
 	    "menu.entry.notifyShortcut": "Notify Shortcut 📗",
 	    "menu.entry.priority": "Priority",
 	    
+	    "error.repeatInterval": "Repeat interval value must be greater than zero.",
 	    "menu.entry.repeat": "Repeat",
 	    "menu.entry.repeat.minutes": "Minutes…",
 	    "menu.entry.repeat.hours": "Hours…",
@@ -134,9 +135,9 @@
 	    "menu.entry.repeat.everytime": "Run Everytime",
 	    "menu.entry.repeat.back": "Don't Change",
 	    "prompt.repeat": "Set schedule by which this cron job can run again.",
-	    "prompt.repeat.minutes": "Enter the number of minutes that must pass before this cron job can run again,",
-	    "prompt.repeat.hours": "Enter the number of hours that must pass before this cron job can run again,",
-	    "prompt.repeat.days": "Enter the number of calendar days that must pass before this cron job can run again,",
+	    "prompt.repeat.2": "Enter the number of minutes that must pass before this cron job can run again,",
+	    "prompt.repeat.3": "Enter the number of hours that must pass before this cron job can run again,",
+	    "prompt.repeat.4": "Enter the number of calendar days that must pass before this cron job can run again,",
 	    
 	    
 	    "menu.entry.requiresInteraction": "Requires User Interaction ✋🏻",
