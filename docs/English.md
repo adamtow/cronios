@@ -2,6 +2,13 @@
 **Run Your Shortcuts on an Automatic Schedule!**
 Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts to run automatically in the background on the dates, times, ranges, and intervals you specify, without any interaction on your part!
 
+## What’s New in Version 1.3
+
+- **Refreshed Interface**: Matches look and feel of GeoCuts and WatchCuts. 
+- **Cron Schedule Assistant**: Guides you in creating a new cron job. 
+- **Repeat Interval**: Fine graines control over how often the cron job actually runs its shortcut. 
+- **Bug Fixes and Performance Improvements**
+
 ## What’s New in Version 1.1
 Cronios 1.1 introductions some exciting new features:
 
