@@ -54,6 +54,8 @@ Cronios adds a third way to run shortcuts: on a schedule and automatically in th
 Consider what is possible when your shortcuts can run with no intervention on your part other than activating Cronios (and making sure it remains active):
 
 - Back up your shortcuts every three hours from 9 a.m. to 5 p.m. during the work week.
+- [Automatically run shortcuts based on your current location](https://routinehub.co/shortcut/1732).
+- Automatically run shortcuts when [triggered from an iCloud-connected device like an Apple Watch or Mac](https://routinehub.co/shortcut/1864).
 - Turn on [Do Not Disturb mode based on events](https://routinehub.co/shortcut/1371) in your calendar.
 - Deliver a customized notification when [your battery level reaches a certain threshold](https://routinehub.co/shortcut/1370).
 - Collect information from the web while you are sleeping for review in the morning.
