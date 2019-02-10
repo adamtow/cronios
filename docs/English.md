@@ -6,7 +6,7 @@ Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts
 
 ## What’s New in Version 1.3.0
 - **Cron Job Assistant**: Guides you in creating a new cron job. 
-- **Repeat Interval**: Fine grained control over how often the cron job actually runs its shortcut.
+- **Repeat Interval**: Set how often the cron job's shortcut run again by minutes, hours, or calendar days. 
 - **Refreshed Interface**: Matches look and feel of GeoCuts and WatchCuts. 
 - **Bug Fixes and Performance Improvements**
 
