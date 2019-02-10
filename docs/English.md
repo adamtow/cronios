@@ -2,26 +2,13 @@
 **Run Your Shortcuts on an Automatic Schedule!**
 Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts to run automatically in the background on the dates, times, ranges, and intervals you specify, without any interaction on your part!
 
-## What’s New in Version 1.3
+> [**Download Cronios on RoutineHub &raquo;**](https://routinehub.co/shortcut/1267)
 
+## What’s New in Version 1.3.0
+- **Cron Job Assistant**: Guides you in creating a new cron job. 
+- **Repeat Interval**: Set how often the cron job's shortcut can run again by minutes, hours, or calendar days. 
 - **Refreshed Interface**: Matches look and feel of GeoCuts and WatchCuts. 
-- **Cron Schedule Assistant**: Guides you in creating a new cron job. 
-- **Repeat Interval**: Fine graines control over how often the cron job actually runs its shortcut. 
 - **Bug Fixes and Performance Improvements**
-
-## What’s New in Version 1.1
-Cronios 1.1 introductions some exciting new features:
-
-- [**Keep-Alive Beep**](#keep-alive): Keep Cronios running much longer in the background with a quick and unobtrusive beep every evaluation period.
-- [**Cronios Watcher**](#cronios-watcher): Notify you within minutes of Cronios stopping. One tap relaunches Cronios again in “Run Continuously” mode. Requires [Scriptable app](https://scriptable.app) be installed on your iOS device.
-- **Priority**: Set the priority of cron jobs, which determines the order in which they run. Choose from Critical, High, Normal, and Low.
-- **Lock Detection**: Detect when your iOS device is locked and prevents certain shortcuts with Lock Prevention enabled from running.
-- **Exclude From Success Notifications**: Exclude a shortcut from appearing in the list of successfully run shortcuts after every evaluation period.
-- **Developer Documentation Updates**: Provide more information for shortcut developers to create great background-aware shortcuts.
-- **Auto-Save**: Automatically save changes when editing cron jobs.
-- **New Icons**: A more consistent icon theme throughout the app.
-- **Faster Performance**: Return to the Cronios Home screen faster after editing a cron job.
-- **Bug Fixes**
 
 See the [full version history here](#version-history).
 
@@ -67,6 +54,8 @@ Cronios adds a third way to run shortcuts: on a schedule and automatically in th
 Consider what is possible when your shortcuts can run with no intervention on your part other than activating Cronios (and making sure it remains active):
 
 - Back up your shortcuts every three hours from 9 a.m. to 5 p.m. during the work week.
+- [Automatically run shortcuts based on your current location](https://routinehub.co/shortcut/1732).
+- Automatically run shortcuts when [triggered from an iCloud-connected device like an Apple Watch or Mac](https://routinehub.co/shortcut/1864).
 - Turn on [Do Not Disturb mode based on events](https://routinehub.co/shortcut/1371) in your calendar.
 - Deliver a customized notification when [your battery level reaches a certain threshold](https://routinehub.co/shortcut/1370).
 - Collect information from the web while you are sleeping for review in the morning.
@@ -99,15 +88,24 @@ As long as Cronios is active[^2], it will check every minute for any shortcut th
 
 <span id="system-requirements" class="section-header"></span>
 ## System Requirements
-Cronios runs on devices with iOS 12 with [Shortcuts 2.1.2](https://itunes.apple.com/us/app/shortcuts/id915249334?mt=8) (or greater) installed. The Cronios shortcut is free to download and use. The source code is licensed under the [MIT License](#license).
+Cronios has the following system requirements:
 
+- iOS 12
+- [Shortcuts 2.1.2](https://itunes.apple.com/us/app/shortcuts/id915249334?mt=8) or higher
+- Scriptable (optional)
+- iCloud account
+
+**Scriptable**
 Cronios can be optionally configured to notify you when it stops running. Enabling this feature requires the installation of [Scriptable](https://scriptable.app), a free app that lets you automate iOS using JavaScript.
 
+**iCloud Drive**
 Content, logs and preferences are stored separately in iCloud Drive for each device you own[^3], so you can use Cronios with multiple iPhones and iPads at the same time.
 
 ![Cronios features device-specific Crontabs and settings](https://atow.files.wordpress.com/2019/01/Cronios-features-device-specific-Crontabs-and-settings.png?w=1280)
 
 <small>[^3]: Cronios uses the Device Name in Settings &raquo; General &raquo; About &raquo; Name to distinguish between devices. It is not recommended to run Cronios on devices that share the same name.</small>
+
+The source code to Cronios is licensed under the [MIT License](#license).
 
 ***
 
@@ -127,14 +125,23 @@ You can check for updates by choosing **Check for Updates…** in Settings.
 ## Getting Started
 Now that Cronios is installed, let’s create your first cron job (affectionately known as a `croncut` in Cronios parlance) by following these steps:
 
-1. Tap on **Cronios** from the Shortcuts Home screen.
-2. Tap on **☑️ My First Cron Job…**
-3. Skip over the **Schedule** section for the moment. The first cron job you will create will run every minute (that's what the `* * * * *` means).
-4. Tap ➕ **No Shortcut** to bring up the Shortcuts selection screen. Scroll through the list of your shortcuts or tap 🔎 Search to filter your list of shortcuts.
-5. Choose a shortcut to run. For your first shortcut, you could try [**Speak Number**](https://routinehub.co/shortcut/1367), a simple shortcut that speaks a random number between 1-100.
-6. Tap the **Cronios Home** menu item.
-7. On the Cronios Home screen, tap **Run Continuously**.
-8. Tap **Start**. 
+1. Tap **Cronios** from the Shortcuts Home screen.
+2. Tap **New Cron Job**
+3. The Cron Job Assistant will now appear to guide you in creating a new cron job.
+5. In Step 1, you will choose a shortcut to run. For your first shortcut, you could try [**Speak Number**](https://routinehub.co/shortcut/1367), a simple shortcut that speaks a random number between 1-100.
+6. In Step 2, you will enter the cron job's **Schedule**. This determines how often Cronios evaluates the cron job. You'll set how often the cron job actually run its shortcut in Step 3 of the Cron Job Assistant. For now, follow the on-screen directions to setting up your schedule. It's recommended that you use the Schedule Assistant unless you are comfortable entering cron expressions manually.
+7. In Step 3, you'll configure the **Repeat Interval** of the cron job. This determines the minimum amount of time before the cron job's shortcut can configure the cron job to:
+	- Run Once and Disable
+	- Run After X Minutes
+	- Run After X Hours
+	- Run After X Calendar Days
+	- Run Every Time
+8. In Step 4, you can configure your cron job's options or use the default options.
+9. In Step 5, you can set the priority of your cron job. Priority determines the order by which cron jobs are evaluated.
+10. In Step 6, you'll name your cron job. Tapping OK will take you to the Cron Job Edit screen for you to review your newly created cron job.
+11. Tap **Home**.
+12. On the Cronios Home screen, tap **Run Continuously**.
+13. Tap **Start**. 
 
 ![Creating your first scheduled shortcut](https://atow.files.wordpress.com/2019/01/Creating-your-first-scheduled-shortcut.png?w=1280)
 
@@ -397,7 +404,7 @@ Below the list of cron jobs are the **Bulk Edit…** and **Bulk Edit All…** co
 
 ### Actions
 
-- **New Cron Job**: Create a new cron job
+- **New Cron Job**: Create a new cron job using the Cron Job Assistant.
 - **Import Cron Jobs**: Import multiple cron jobs at a time. Input is a text string that must adhere to the [**Cronios Crontab** format](#cronios-crontab).
 - [**Cron Expression Editor**](#cron-expression-editor): a tool for generating cron schedule expressions. Ever wonder what `*/5 9-17 10-15 4 *` means? Just enter the expression in the Expression Editor and get back a human-readable response of `every 5th minute past every hour from 9 through 17 on every day-on-month from 9 through 14 in April.`
 
@@ -425,12 +432,14 @@ Remember that a cron job is a scheduled shortcut. You define the schedule at whi
 ![Editing a cron job in Cronios](https://atow.files.wordpress.com/2019/01/Editing-a-cron-job-in-Cronios.png?w=1280)
 
 - **Cronios Home**: Return to the Cronios Home screen. Any changes you have made to the cron job will be saved.
-- **☑️ or ⚪️ Active**: Check this if you want the cron job evaluated every minute. 
-- **✏️ Description**: A short description for the cron job. Tap to edit the description.
-- **🕑 Expression**: The cron schedule expression. 
+- **Active Status**: The ON/OFF switch for this cron job.
+- **Description**: A short description for the cron job. Tap to edit the description.
+- **Expression**: The cron schedule expression. 
+- **Repeat Interval**: Determines how often the cron job's shortcut will actually run. You can configure the shortcut to run every time, run once, or after X minutes, hours, or calendar days.
+- **Fuzzy** *️⃣: Denotes that the cron job should run on every matched scheduled.
 - **Shortcut**: The shortcut to run when the schedule matches the current date. Tap to choose another shortcut.
-- **▶️ Test Shortcut**: Run the shortcut from Cronios. This mimics what would happen if Cronios executed your shortcut on schedule.
-- **🔧 Edit Shortcut**: Quit Cronios and re-open the Shortcuts application to the selected shortcut in edit mode.
+- **Test Shortcut**: Run the shortcut from Cronios. This mimics what would happen if Cronios executed your shortcut on schedule.
+- **Edit Shortcut**: Quit Cronios and re-open the Shortcuts application to the selected shortcut in edit mode.
 - **Priority**: A cron job’s priority determines when it is evaluated and run when you have multiple cron jobs in your Crontab. A value between 1-25 is considered Critical‼️. A value between 26-49 is considered High❗️. A value of 50 is normal (this is the default priority for new cron job’s). Finally a value between 52-100 is considered Low❕. 
 - **Display Notification** 💬: Check this if you want a notification banner to appear when the assigned shortcut runs.
 - **Play Sound** 🔔: Check this if you want a sound to accompany the banner notification.
@@ -1053,6 +1062,8 @@ Sometimes Cronios is running just fine for hours at a time before failing with a
 - 1.0.0 (2018-12-30) - Initial release.
 - 1.0.1 (2018-12-30) - Fixed error when after running Check for Updates.
 - 1.1.0 (2019-01-19) - Keep-Alive Beep. Cronios Watcher using Scriptable support. Additional options added to cron jobs: Priority, Lock Detection, and Exclude From Success Notifications. Crontab is sorted according to active status, priority and description. Auto Save of cron jobs from the New/Edit Cron Job screen. New icon set. Performance improvements. Documentation updates. Check for Updates checks RoutineHub directly. Bug fixes.
+- 1.2.0 (2019-01-21) - Cron Job Importer detects cron jobs with the same name/shortcut combination. Cronios Watcher called at beginning of cron job evaluation.
+- 1.3.0 (2019-02-10) - Matches look and feel of GeoCuts and WatchCuts. Cron Job Assistant guides you in creating cron jobs. Repeat Interval provides fine-grained control over how often a cron job can run its shortcut. Bug fixes and performance improvements.
 
 <span id="license" class="section-header"></span>
 # License
