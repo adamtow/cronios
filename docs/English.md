@@ -1001,8 +1001,11 @@ A shortcut that retrieves information from the web might fetch less information 
 
 <span id="localization" class="section-header"></span>
 ## Localization
-Cronios is available in English, but the application is fully ready to be localized. 
-If you want to help provide a translation for Cronios, [contact me](mailto:cronios+localization@tow.com)!
+Cronios is available in English, but the application is fully ready to be localized. I have developed an application, Localization Helper, that will assist you in localizing Cronios into your language.
+
+> [**Download Localization Helper from RoutineHub &raquo;**](https://routinehub.co/shortcut/1931)
+
+When the localization file is complete, either submit a pull request on [my GitHub page](https://github.com/adamtow/) or [contact me](mailto:cronios+localization@tow.com).
 
 ***
 
