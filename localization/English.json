@@ -47,6 +47,7 @@
 	    "error.function.none.title": "Missing Method",
 	    "error.function.unknown": "Cronios could not understand the `{{Function}}` message.",
 	    "error.function.unknown.title": "Unknown function",
+	    "error.cache": "Cronios must reload the cache. Please try again after the Home screen appears",
 	    "error.import": "There was an error importing the crontab. Please make sure that the file you're importing conforms to the Cronios crontab file format. Visit Help for more details.",
 	    "error.import.title": "Error Importing Crontab",
 	    "error.invalid.expression": "This cron schedule expression is not valid. Please try again.",
