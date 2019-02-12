@@ -268,6 +268,7 @@
 	    "menu.requirements.separator": "Requirements",
 	    "menu.reset.cancel": "Don’t Reset",
 	    "menu.reset.icons": "Clear Shortcut Icons Cache",
+	    "menu.reset.cache": "Clear Menu Caches",
 	    "menu.reset.settings": "Reset Settings…",
 	    "menu.run.continuously": "Run Continuously…",
 	    "menu.run.once": "Run Once",
