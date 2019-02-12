@@ -32,6 +32,7 @@ See the [full version history here](#version-history).
 - [Settings](#settings)
 - [Developing Shortcuts Optimized for Cronios](#developer)
 - [Cronios Daemon Helper Shortcut](#cronios-daemon)
+- [Localization](#localization)
 - [Security](#security)
 - [Known Issues](#known-issues)
 - [Version History](#version-history)
