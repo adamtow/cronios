@@ -37,7 +37,7 @@
 	    "alert_update_none": "You are currently running the latest version of Cronios.",
 	    "alert_welcome": "Run Your Shortcuts on an Automatic Schedule!\n\nCronios brings a UNIX-like cron scheduler to iOS. Configure your shortcuts to run in the background at fixed times, dates, ranges, and intervals.",
 	    "alert_welcome_title": "Welcome to Cronios!",
-	    "alert_whatsNew": "• Cron Job Assistant guides you in creating new cron jobs.\n\n• Repeat Interval gives you more control over how often your cron job's shortcut runs\n\n• Refreshed interface matches that of GeoCuts and WatchCuts\n\n• Bug fixes and performance improvements\n\nLearn more about these new features in Help.",
+	    "alert_whatsNew": "• Support for Shortcuts 2.2.\n\n• Cron Job Assistant guides you in creating new cron jobs.\n\n• Repeat Interval gives you more control over how often your cron job's shortcut runs\n\n• Refreshed interface matches that of GeoCuts and WatchCuts\n\n• Bug fixes and performance improvements\n\nLearn more about these new features in Help.",
 	    "alert_whatsNew_title": "What's New in Cronios",
 	    "default_description": "Untitled Cron Job",
 	    "error_assistant_expression_default": "Using default schedule of any time.",
