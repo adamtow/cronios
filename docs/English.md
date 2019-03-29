@@ -4,11 +4,8 @@ Cronios is a full-featured shortcuts scheduler for iOS. Configure your shortcuts
 
 > [**Download Cronios on RoutineHub &raquo;**](https://routinehub.co/shortcut/1267)
 
-## What’s New in Version 1.3.0
-- **Cron Job Assistant**: Guides you in creating a new cron job. 
-- **Repeat Interval**: Set how often the cron job's shortcut can run again by minutes, hours, or calendar days. 
-- **Refreshed Interface**: Matches look and feel of GeoCuts and WatchCuts. 
-- **Bug Fixes and Performance Improvements**
+## What’s New in Version 1.4.0
+- Support for Shortcuts 2.2. Refactored localization and variable names.
 
 See the [full version history here](#version-history).
 
@@ -1068,6 +1065,12 @@ Sometimes Cronios is running just fine for hours at a time before failing with a
 - 1.1.0 (2019-01-19) - Keep-Alive Beep. Cronios Watcher using Scriptable support. Additional options added to cron jobs: Priority, Lock Detection, and Exclude From Success Notifications. Crontab is sorted according to active status, priority and description. Auto Save of cron jobs from the New/Edit Cron Job screen. New icon set. Performance improvements. Documentation updates. Check for Updates checks RoutineHub directly. Bug fixes.
 - 1.2.0 (2019-01-21) - Cron Job Importer detects cron jobs with the same name/shortcut combination. Cronios Watcher called at beginning of cron job evaluation.
 - 1.3.0 (2019-02-10) - Matches look and feel of GeoCuts and WatchCuts. Cron Job Assistant guides you in creating cron jobs. Repeat Interval provides fine-grained control over how often a cron job can run its shortcut. Bug fixes and performance improvements.
+- 1.3.1: Caching of main menu and cron jobs. Don't call Cronios Watcher in Run Once mode. Fixed lock detection bug.
+- 1.3.2: Run/Edit Shortcut now runs properly from the Edit Shortcuts screen.
+- 1.3.3: Added Check Online preference to work around Apple certificate error with Get Current IP action.
+- 1.3.4: Fixed documentation for Apple bug with Get Current IP action.
+- 1.3.5: Use Local IP instead of External IP to see if the device is online.
+- 1.4.0 (2019-03-28) - Support for Shortcuts 2.2. Refactored localization and variable names.
 
 <span id="license" class="section-header"></span>
 # License
