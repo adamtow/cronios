@@ -260,6 +260,7 @@
 	    "menu_prefs_openInEditor_description": "Always open CEE when editing a schedule.",
 	    "menu_prefs_reset": "Reset Settings…",
 	    "menu_prefs_sound": "Play Sound with Notification",
+	    "menu_prefs_showSuccessNotification": "Show Success Notification",
 	    "menu_prefs_tools_label": "Tools",
 	    "menu_prefs_update": "Check for Updates…",
 	    "menu_prefs_useLocalTime": "Use Local Time",
